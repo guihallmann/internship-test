@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\PersonController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
-use App\Http\Controllers\PersonController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,7 +16,6 @@ use App\Http\Controllers\PersonController;
 |
 */
 
-// Route::get('/', [PersonController::class, 'index']);
 
 Route::middleware(['guest'])->group(function () {
     Route::get('/login', [LoginController::class, 'create'])->name('login');
@@ -29,5 +28,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         return Inertia::render('Home');
     });
+    Route::post('/person', [PersonController::class, 'store'])->name('person');
 });
 
