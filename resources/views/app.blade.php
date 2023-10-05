@@ -8,7 +8,7 @@
     @inertiaHead
     <title>Sistema de Protocolos</title>
   </head>
-  <body>
+  <body class="bg-zinc-50 w-full h-screen">
     @inertia
   </body>
 </html>
