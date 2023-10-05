@@ -1,14 +1,14 @@
 <template>
-    <div class="flex justify-between">
-        <h1 class="text-3xl">Home</h1>
-        <nav-link href="/logout" method="post">Sair</nav-link>
-    </div>
+    <navbar></navbar>
+    <create-person></create-person>
 </template>
 <script>
-import NavLink from "./Shared/NavLink.vue";
+import Navbar from "./Shared/Navbar.vue";
+import CreatePerson from "./Shared/Forms/CreatePerson.vue";
 export default {
     components: {
-        NavLink,
+        Navbar,
+        CreatePerson,
     },
 };
 </script>
