@@ -1,5 +1,5 @@
 <template>
-    <nav class="bg-zinc-800 p-4">
+    <nav class="bg-zinc-800 p-4 shadow-md">
         <div class="container mx-auto flex justify-between items-center">
             <div>
                 <span class="text-white text-3xl font-bold">I.T.S</span>
@@ -9,6 +9,7 @@
                     class="text-xl text-white"
                     href="/logout"
                     method="post"
+                    as="button"
                 >
                     Sair
                 </nav-link>

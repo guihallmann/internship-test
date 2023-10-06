@@ -1,7 +1,7 @@
 <template>
-    <div class="flex justify-center items-center min-h-screen bg-zinc-50">
+    <div class="flex justify-center items-center min-h-screen bg-zinc-50 p-2">
         <div
-            class="w-full max-w-lg p-8 border-2 border-black rounded shadow-xl"
+            class="w-full max-w-lg p-6 border-2 border-black rounded shadow-xl"
         >
             <form @submit.prevent="submitLogin">
                 <div class="flex flex-col mb-4">

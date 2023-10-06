@@ -1,8 +1,6 @@
 <template>
     <div class="flex justify-center bg-zinc-50 p-4 mt-4">
-        <div
-            class="w-full p-8 border-2 border-black rounded shadow-xl sm:max-w-3xl"
-        >
+        <div class="w-full p-8 border-2 border-black rounded shadow-xl">
             <div class="mb-4">
                 <h1 class="text-2xl font-bold text-zinc-800">
                     Cadastrar Contribuinte
@@ -140,7 +138,7 @@
 
                 <button
                     type="submit"
-                    class="w-full border-2 border-zinc-800 rounded-sm text-xl font-bold p-2 mt-4 bg-green-400 hover:bg-green-400/90"
+                    class="w-full border-2 border-zinc-800 rounded-sm text-xl font-bold p-2 mt-4 bg-zinc-100 hover:bg-zinc-200"
                 >
                     Cadastrar
                 </button>
