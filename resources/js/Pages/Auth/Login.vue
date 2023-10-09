@@ -1,5 +1,8 @@
 <template>
-    <div class="flex justify-center items-center min-h-screen bg-zinc-50 p-2">
+    <div
+        class="flex flex-col justify-center items-center min-h-screen bg-zinc-50 p-2"
+    >
+        <span class="font-extrabold text-5xl text-zinc-800 mb-6">I.T.S</span>
         <div
             class="w-full max-w-lg p-6 border-2 border-black rounded shadow-xl"
         >
