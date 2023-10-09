@@ -1,20 +1,19 @@
 <template>
-    <nav class="bg-zinc-800 p-4 shadow-md">
-        <div class="container mx-auto flex justify-between items-center">
-            <div>
-                <span class="text-white text-3xl font-bold">I.T.S</span>
-            </div>
-            <div>
-                <nav-link
-                    class="text-xl text-white"
-                    href="/logout"
-                    method="post"
-                    as="button"
-                >
-                    Sair
-                </nav-link>
-            </div>
-        </div>
+    <nav
+        class="flex w-full justify-between items-center bg-zinc-800 p-4 shadow-md"
+    >
+        <nav-link class="text-white text-3xl font-bold" href="/">
+            I.T.S
+        </nav-link>
+
+        <nav-link
+            class="text-xl text-white hover:underline"
+            href="/logout"
+            method="post"
+            as="button"
+        >
+            Sair
+        </nav-link>
     </nav>
 </template>
 <script>
