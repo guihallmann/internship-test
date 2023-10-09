@@ -28,6 +28,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         return Inertia::render('Home');
     });
+    Route::get('/people', [PersonController::class, 'index']);
+    Route::get('/edit-person/{id}', [PersonController::class, 'show'])->name('edit-person');
     Route::post('/person', [PersonController::class, 'store'])->name('person');
 });
 
