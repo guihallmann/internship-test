@@ -9,8 +9,9 @@ use Inertia\Inertia;
 class PersonController extends Controller
 {
     public function index() {
-        $all = Person::all()->map(fn($person) => ['name' => $person->name, 'id'=> $person->id]);
-        return Inertia::render('Home', ['people' => $all]);
+        // $all = Person::all()->map(fn($person) => ['name' => $person->name, 'id'=> $person->id]);
+        $all = Person::all();
+        return Inertia::render('People', ['people' => $all]);
     }
 
     public function store(Request $request) {
@@ -26,8 +27,13 @@ class PersonController extends Controller
             'complement' => 'nullable|string',
         ]);
 
-        $person = Person::create($personDataValidation);
+        Person::create($personDataValidation);
 
-        return response()->json(['message' => 'Person created successfully', 'data' => $person], 201);
+        return redirect()->intended('/');
+    }
+
+    public function show(string $id) {
+        $person = Person::findOrfail($id);
+        return Inertia::render('EditPerson'. ['person' => $person]);
     }
 }
