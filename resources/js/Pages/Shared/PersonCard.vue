@@ -16,21 +16,22 @@
                     person.city ? `${person.city}` : "",
                 ]
                     .filter(Boolean)
-                    .join(" - ")
+                    .join(", ")
             }}
         </span>
-        <div class="flex justify-evenly items-center w-full gap-4">
+        <div class="flex justify-center items-center w-full gap-4 py-1">
             <nav-link
                 class="font-medium text-amber-500 hover:underline"
-                href="#"
+                :href="route('edit-person', { id: person.id })"
                 as="button"
             >
                 Editar
             </nav-link>
             <nav-link
                 class="font-medium text-rose-500 hover:underline"
-                href="#"
+                :href="route('delete-person', { id: person.id })"
                 as="button"
+                method="delete"
             >
                 Excluir
             </nav-link>
