@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-center bg-zinc-50 p-4 mt-4">
+    <div class="flex justify-center bg-zinc-50 p-4 mt-4 w-full">
         <div
             class="w-full mx-auto p-8 border-2 border-black rounded shadow-xl sm:max-w-6xl"
         >
@@ -9,7 +9,7 @@
                 </h1>
                 <hr class="flex-grow" />
             </div>
-            <form @submit.prevent="submitPerson">
+            <form @submit.prevent="editPerson">
                 <div class="flex flex-col sm:grid grid-cols-3 gap-4">
                     <div class="flex flex-col mb-4">
                         <label for="name" class="block text-sm font-bold">
@@ -133,7 +133,7 @@
                         </label>
                         <input
                             class="p-3 text-lg w-full border-2 border-zinc-800 rounded-sm bg-zinc-100"
-                            type="number"
+                            type="text"
                             name="number"
                             id="number"
                             placeholder="Número"
@@ -193,7 +193,7 @@
                         :disabled="form.processing"
                         class="w-full border-2 border-zinc-800 rounded-sm text-xl font-bold p-2 mt-4 bg-emerald-400 hover:bg-emerald-400/80 sm:w-1/4"
                     >
-                        Cadastrar
+                        Editar
                     </button>
                 </div>
             </form>
@@ -203,26 +203,23 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
 
-defineProps({
+const props = defineProps({
     person: Object,
 });
 
 let form = useForm({
-    name: person.name,
-    birthday: person.birthday,
-    cpf: person.cpf,
-    sex: person.sex,
-    city: person.city,
-    neighborhood: person.neighborhood,
-    street: person.street,
-    number: person.number,
-    complement: person.complement,
+    name: props.person.name,
+    birthday: props.person.birthday,
+    cpf: props.person.cpf,
+    sex: props.person.sex,
+    city: props.person.city,
+    neighborhood: props.person.neighborhood,
+    street: props.person.street,
+    number: props.person.number,
+    complement: props.person.complement,
 });
 
-const submitPerson = () => {
-    form.post("/person", {
-        preserveScroll: true,
-        onSuccess: () => form.reset(),
-    });
+const editPerson = () => {
+    form.put(`/edit-person/${props.person.id}`);
 };
 </script>
