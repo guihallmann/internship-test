@@ -133,7 +133,7 @@
                         </label>
                         <input
                             class="p-3 text-lg w-full border-2 border-zinc-800 rounded-sm bg-zinc-100"
-                            type="number"
+                            type="text"
                             name="number"
                             id="number"
                             placeholder="Número"
