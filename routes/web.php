@@ -25,11 +25,23 @@ Route::post('/login', [LoginController::class, 'store'])->name('login');
 Route::post('/logout', [LoginController::class, 'destroy'])->middleware('auth');
 
 Route::middleware('auth')->group(function () {
+    // get home page
     Route::get('/', function () {
         return Inertia::render('Home');
     });
+    // get all people
     Route::get('/people', [PersonController::class, 'index']);
-    Route::get('/edit-person/{id}', [PersonController::class, 'show'])->name('edit-person');
+    // create person
     Route::post('/person', [PersonController::class, 'store'])->name('person');
+    // get edit person page
+    Route::get('/edit-person/{id}', [PersonController::class, 'show'])->name('edit-person');
+    // get create person page
+    Route::get('/create-person', function () {
+        return Inertia::render('CreatePerson');
+    });
+    // update person
+    Route::put('/edit-person/{id}', [PersonController::class, 'update'])->name('edit-person');
+    // delete person
+    Route::delete('/delete-person/{id}', [PersonController::class, 'destroy'])->name('delete-person');
 });
 
