@@ -17,7 +17,7 @@
             </nav-link>
             <nav-link
                 class="flex justify-between items-center w-full gap-2 text-xl text-white font-medium hover:underline"
-                href="#"
+                href="/protocols"
                 :active="$page.component === 'Protocols'"
             >
                 Protocolos
