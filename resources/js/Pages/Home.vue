@@ -2,11 +2,11 @@
     <layout>
         <div class="flex flex-col justify-center items-center p-4 m-2">
             <card href="/create-person">
-                Contribuinte
+                Novo Contribuinte
                 <icon name="add-user" />
             </card>
-            <card href="#">
-                Protocolo
+            <card href="/create-protocol">
+                Novo Protocolo
                 <icon name="add-prot" />
             </card>
         </div>
