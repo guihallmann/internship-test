@@ -67,6 +67,14 @@ class PersonController extends Controller
             // implementar excessões depois
             return;
         }
+    }
 
+    public function getPersonProtocols(string $id) {
+        try {
+            $personProtocols = Person::with('protocols')->findOrFail($id);
+            return Inertia::render('PersonProtocols', ['protocols' => $personProtocols]);
+        } catch (ModelNotFoundException $e){
+            return;
+        }
     }
 }
