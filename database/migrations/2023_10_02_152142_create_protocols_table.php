@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('protocols', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('description');
+            $table->longText('description');
             $table->integer('deadline');
             $table->unsignedInteger('person_id');
             $table->foreign('person_id')->references('id')->on('people')->onDelete('cascade');
