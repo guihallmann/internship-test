@@ -1,7 +1,7 @@
 <template>
-    <div class="flex justify-center bg-zinc-50 p-4 mt-4">
+    <div class="flex w-full justify-center bg-zinc-50 p-4 mt-4 sm:mx-4">
         <div
-            class="w-full mx-auto p-8 border-2 border-black rounded shadow-xl sm:max-w-6xl"
+            class="w-full mx-auto p-8 border-2 border-black rounded shadow-xl sm:max-w-full"
         >
             <div class="mb-4">
                 <h1 class="text-2xl font-bold text-zinc-800">
@@ -16,7 +16,7 @@
                             Nome
                         </label>
                         <input
-                            class="p-3 text-lg w-full border-2 border-zinc-800 rounded-sm bg-zinc-100"
+                            class="p-3 text-lg w-full border-2 border-zinc-800 rounded-sm bg-zinc-100 focus:bg-emerald-100/80"
                             type="text"
                             name="name"
                             id="name"
@@ -35,7 +35,7 @@
                             Data de nascimento
                         </label>
                         <input
-                            class="p-3 text-lg w-full border-2 border-zinc-800 rounded-sm bg-zinc-100"
+                            class="p-3 text-lg w-full border-2 border-zinc-800 rounded-sm bg-zinc-100 focus:bg-emerald-100/80"
                             type="date"
                             name="birthday"
                             id="birthday"
@@ -53,7 +53,7 @@
                             CPF
                         </label>
                         <input
-                            class="p-3 text-lg w-full border-2 border-zinc-800 rounded-sm bg-zinc-100"
+                            class="p-3 text-lg w-full border-2 border-zinc-800 rounded-sm bg-zinc-100 focus:bg-emerald-100/80"
                             type="text"
                             name="cpf"
                             id="cpf"
@@ -75,7 +75,7 @@
                             name="sex"
                             id="sex"
                             v-model="form.sex"
-                            class="p-3 text-lg w-full border-2 border-zinc-800 rounded-sm bg-zinc-100"
+                            class="p-3 text-lg w-full border-2 border-zinc-800 rounded-sm bg-zinc-100 focus:bg-emerald-100/80"
                         >
                             <option value="">Sexo</option>
                             <option value="Masculino">Masculino</option>
@@ -94,7 +94,7 @@
                             Cidade
                         </label>
                         <input
-                            class="p-3 text-lg w-full border-2 border-zinc-800 rounded-sm bg-zinc-100"
+                            class="p-3 text-lg w-full border-2 border-zinc-800 rounded-sm bg-zinc-100 focus:bg-emerald-100/80"
                             type="text"
                             name="city"
                             id="city"
@@ -113,7 +113,7 @@
                             Rua
                         </label>
                         <input
-                            class="p-3 text-lg w-full border-2 border-zinc-800 rounded-sm bg-zinc-100"
+                            class="p-3 text-lg w-full border-2 border-zinc-800 rounded-sm bg-zinc-100 focus:bg-emerald-100/80"
                             type="text"
                             name="street"
                             id="street"
@@ -132,7 +132,7 @@
                             Número
                         </label>
                         <input
-                            class="p-3 text-lg w-full border-2 border-zinc-800 rounded-sm bg-zinc-100"
+                            class="p-3 text-lg w-full border-2 border-zinc-800 rounded-sm bg-zinc-100 focus:bg-emerald-100/80"
                             type="text"
                             name="number"
                             id="number"
@@ -154,7 +154,7 @@
                             Bairro
                         </label>
                         <input
-                            class="p-3 text-lg w-full border-2 border-zinc-800 rounded-sm bg-zinc-100"
+                            class="p-3 text-lg w-full border-2 border-zinc-800 rounded-sm bg-zinc-100 focus:bg-emerald-100/80"
                             type="text"
                             name="neighborhood"
                             id="neighborhood"
@@ -173,7 +173,7 @@
                             Complemento
                         </label>
                         <input
-                            class="p-3 text-lg w-full border-2 border-zinc-800 rounded-sm bg-zinc-100"
+                            class="p-3 text-lg w-full border-2 border-zinc-800 rounded-sm bg-zinc-100 focus:bg-emerald-100/80"
                             type="text"
                             name="complement"
                             id="complement"
