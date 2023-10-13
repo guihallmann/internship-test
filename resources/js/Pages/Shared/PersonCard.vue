@@ -19,7 +19,7 @@
                     .join(", ")
             }}
         </span>
-        <div class="flex justify-center items-center w-full gap-4 py-1">
+        <div class="flex justify-center items-center w-full gap-4">
             <nav-link
                 class="font-medium text-amber-500 hover:underline"
                 :href="route('edit-person', { id: person.id })"
