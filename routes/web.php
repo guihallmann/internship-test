@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PersonController;
+use App\Http\Controllers\ProtocolController;
+use App\Models\Person;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -31,17 +33,28 @@ Route::middleware('auth')->group(function () {
     });
     // get all people
     Route::get('/people', [PersonController::class, 'index']);
-    // create person
-    Route::post('/person', [PersonController::class, 'store'])->name('person');
-    // get edit person page
-    Route::get('/edit-person/{id}', [PersonController::class, 'show'])->name('edit-person');
     // get create person page
     Route::get('/create-person', function () {
         return Inertia::render('CreatePerson');
     });
+    // create person
+    Route::post('/person', [PersonController::class, 'store'])->name('person');
+    // get update person page
+    Route::get('/edit-person/{id}', [PersonController::class, 'show'])->name('edit-person');
     // update person
     Route::put('/edit-person/{id}', [PersonController::class, 'update'])->name('edit-person');
     // delete person
     Route::delete('/delete-person/{id}', [PersonController::class, 'destroy'])->name('delete-person');
+
+    // get all protocols
+    Route::get('/protocols', [ProtocolController::class, 'index']);
+    // get create protocol page
+    Route::get('/create-protocol', function () {
+        return Inertia::render('CreateProtocol', ['people' => Person::all()]);
+    });
+    // create protocol
+    Route::post('/protocol', [ProtocolController::class, 'store'])->name('protocol');
+    // delete protocol
+    Route::delete('/delete-protocol/{id}', [ProtocolController::class, 'destroy'])->name('delete-protocol');
 });
 
