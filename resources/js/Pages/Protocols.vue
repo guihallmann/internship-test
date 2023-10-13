@@ -1,14 +1,14 @@
 <template>
     <layout>
         <div class="flex flex-col">
-            <person-card
-                v-for="person in people"
-                :key="person.id"
-                :person="person"
+            <protocol-card
+                v-for="protocol in protocols"
+                :key="protocol.id"
+                :protocol="protocol"
             />
         </div>
         <div
-            v-if="!people.length"
+            v-if="!protocols.length"
             class="flex justify-center items-center p-4 mt-4"
         >
             <span class="font-medium text-xl text-zinc-800 sm:text-3xl"
@@ -19,14 +19,14 @@
 </template>
 <script>
 import Layout from "./Shared/Layout.vue";
-import PersonCard from "./Shared/PersonCard.vue";
+import ProtocolCard from "./Shared/ProtocolCard.vue";
 export default {
     components: {
         Layout,
-        PersonCard,
+        ProtocolCard,
     },
     props: {
-        people: Array,
+        protocols: Array,
     },
 };
 </script>
