@@ -5,16 +5,23 @@ namespace App\Http\Controllers;
 use App\Models\Person;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 
 class PersonController extends Controller
 {
-    public function index() {
-        $all = Person::all();
-        return Inertia::render('People', ['people' => $all]);
+    public function index(Request $request) {
+        return Inertia::render('People', [
+            'people' => Person::query()
+            ->when($request->input('search'), function($query, $search) {
+                $query->where('name', 'like', "%{$search}%")->orWhere('cpf', 'like', "%{$search}%");
+            })->get(),
+            'filters' => $request->only(["search"])
+        ]); 
     }
+
 
     public function store(Request $request) {
         $personDataValidation = $request->validate([
