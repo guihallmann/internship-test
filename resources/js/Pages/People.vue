@@ -1,32 +1,41 @@
 <template>
-    <layout>
+    <Layout>
+        <div class="flex justify-center items-center my-4">
+            <input
+                v-model="search"
+                name="search"
+                type="text"
+                placeholder="Pesquisar por nome ou CPF..."
+                class="w-full mx-1 p-3 rounded bg-zinc-100 focus:outline-none focus:bg-emerald-100 border-2 border-zinc-800 sm:w-1/3"
+            />
+        </div>
         <div class="flex flex-col">
-            <person-card
-                v-for="person in people"
+            <PersonCard
+                v-for="person in props.people"
                 :key="person.id"
                 :person="person"
             />
         </div>
-        <div
-            v-if="!people.length"
-            class="flex justify-center items-center p-4 mt-4"
-        >
-            <span class="font-medium text-xl text-zinc-800 sm:text-3xl"
-                >Nenhum resultado encontrado!</span
-            >
-        </div>
-    </layout>
+    </Layout>
 </template>
-<script>
+
+<script setup>
 import Layout from "./Shared/Layout.vue";
 import PersonCard from "./Shared/PersonCard.vue";
-export default {
-    components: {
-        Layout,
-        PersonCard,
-    },
-    props: {
-        people: Array,
-    },
-};
+import { ref, watch } from "vue";
+import { router } from "@inertiajs/vue3";
+
+const props = defineProps({
+    people: Array,
+    filters: Object,
+});
+
+let search = ref(props.filters.search);
+watch(search, (value) => {
+    router.get(
+        "/people",
+        { search: value },
+        { preserveState: true, replace: true }
+    );
+});
 </script>
