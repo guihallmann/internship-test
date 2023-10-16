@@ -54,6 +54,10 @@ Route::middleware('auth')->group(function () {
     });
     // create protocol
     Route::post('/protocol', [ProtocolController::class, 'store'])->name('protocol');
+    // get update protocol page
+    Route::get('/edit-protocol/{id}', [ProtocolController::class, 'show'])->name('edit-protocol');
+    // update protocol
+    Route::put('/edit-protocol/{id}', [ProtocolController::class, 'update'])->name('edit-protocol');
     // delete protocol
     Route::delete('/delete-protocol/{id}', [ProtocolController::class, 'destroy'])->name('delete-protocol');
 });
