@@ -5,7 +5,6 @@
         <nav-link class="text-white text-3xl font-bold" href="/"
             >I.T.S</nav-link
         >
-
         <div class="hidden sm:flex space-x-8">
             <nav-link
                 class="flex justify-between items-center w-full gap-2 text-xl text-white font-medium hover:underline"
@@ -55,7 +54,7 @@
                 </nav-link>
                 <nav-link
                     class="flex justify-between items-center w-full gap-2 text-xl text-zinc-800 font-medium hover:underline"
-                    href="#"
+                    href="/protocols"
                     :active="$page.component === 'Protocols'"
                 >
                     Protocolos
