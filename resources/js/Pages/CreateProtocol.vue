@@ -3,8 +3,6 @@
         <div class="flex justify-center">
             <create-protocol :people="people" />
         </div>
-
-        <!-- <create-person></create-person> -->
     </layout>
 </template>
 <script>
