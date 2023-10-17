@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\ProtocolController;
+use App\Http\Controllers\UserController;
 use App\Models\Person;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -27,38 +28,46 @@ Route::post('/login', [LoginController::class, 'store'])->name('login');
 Route::post('/logout', [LoginController::class, 'destroy'])->middleware('auth');
 
 Route::middleware('auth')->group(function () {
-    // get home page
+
+    // home page
     Route::get('/', function () {
         return Inertia::render('Home');
     });
-    // get all people
-    Route::get('/people', [PersonController::class, 'index']);
-    // get create person page
-    Route::get('/create-person', function () {
-        return Inertia::render('CreatePerson');
-    });
-    // create person
-    Route::post('/person', [PersonController::class, 'store'])->name('person');
-    // get update person page
-    Route::get('/edit-person/{id}', [PersonController::class, 'show'])->name('edit-person');
-    // update person
-    Route::put('/edit-person/{id}', [PersonController::class, 'update'])->name('edit-person');
-    // delete person
-    Route::delete('/delete-person/{id}', [PersonController::class, 'destroy'])->name('delete-person');
 
-    // get all protocols
-    Route::get('/protocols', [ProtocolController::class, 'index']);
-    // get create protocol page
-    Route::get('/create-protocol', function () {
-        return Inertia::render('CreateProtocol', ['people' => Person::all()]);
+    // person routes
+    Route::prefix('person')->group(function() {
+        Route::get('/all', [PersonController::class, 'index']);
+        Route::get('/create', function () {
+            return Inertia::render('Person/Create');
+        });
+        Route::post('/', [PersonController::class, 'store'])->name('store-person');
+        Route::get('/edit/{id}', [PersonController::class, 'show'])->name('edit-person');
+        Route::put('/edit/{id}', [PersonController::class, 'update'])->name('update-person');
+        Route::delete('/delete/{id}', [PersonController::class, 'destroy'])->name('destroy-person');
     });
-    // create protocol
-    Route::post('/protocol', [ProtocolController::class, 'store'])->name('protocol');
-    // get update protocol page
-    Route::get('/edit-protocol/{id}', [ProtocolController::class, 'show'])->name('edit-protocol');
-    // update protocol
-    Route::put('/edit-protocol/{id}', [ProtocolController::class, 'update'])->name('edit-protocol');
-    // delete protocol
-    Route::delete('/delete-protocol/{id}', [ProtocolController::class, 'destroy'])->name('delete-protocol');
+
+    // protocol routes
+    Route::prefix('protocol')->group(function() {
+        Route::get('/all', [ProtocolController::class, 'index']);
+        Route::get('/create', function () {
+            return Inertia::render('Protocol/Create', ['people' => Person::all()]);
+        });
+        Route::post('/', [ProtocolController::class, 'store'])->name('store-protocol');
+        Route::get('/edit/{id}', [ProtocolController::class, 'show'])->name('edit-protocol');
+        Route::put('/edit/{id}', [ProtocolController::class, 'update'])->name('update-protocol');
+        Route::delete('/delete/{id}', [ProtocolController::class, 'destroy'])->name('destroy-protocol');
+    });
+    
+    // user routes
+    Route::prefix('user')->group(function() {
+        Route::get('/all', [UserController::class, 'index']);
+        Route::get('/create', function () {
+            return Inertia::render('User/Create');
+        });
+        Route::post('/', [UserController::class, 'store'])->name('store-user');
+        Route::get('/edit/{id}', [UserController::class, 'show'])->name('edit-user');
+        Route::put('/edit/{id}', [UserController::class, 'update'])->name('update-user');
+        Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('destroy-user');
+    });
 });
 
