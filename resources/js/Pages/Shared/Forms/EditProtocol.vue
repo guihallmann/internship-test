@@ -107,6 +107,6 @@ let form = useForm({
 });
 
 const editProtocol = () => {
-    form.put(`/edit-protocol/${props.protocol.id}`);
+    form.put(`/protocol/edit/${props.protocol.id}`);
 };
 </script>

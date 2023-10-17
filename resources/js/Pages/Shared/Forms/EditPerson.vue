@@ -220,6 +220,6 @@ let form = useForm({
 });
 
 const editPerson = () => {
-    form.put(`/edit-person/${props.person.id}`);
+    form.put(`/person/edit/${props.person.id}`);
 };
 </script>
