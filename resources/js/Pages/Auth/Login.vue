@@ -46,7 +46,7 @@
                 </div>
                 <button
                     type="submit"
-                    class="w-full border-2 border-zinc-800 rounded-sm text-xl font-bold p-2 mt-4 bg-zinc-100 hover:bg-zinc-200"
+                    class="w-full border-2 border-zinc-800 rounded-sm text-xl font-bold p-2 my-4 bg-emerald-400 hover:bg-emerald-400/80"
                 >
                     Entrar
                 </button>
