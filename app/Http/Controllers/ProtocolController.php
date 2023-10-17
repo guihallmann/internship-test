@@ -12,15 +12,9 @@ use Inertia\Inertia;
 
 
 class ProtocolController extends Controller
-{
-    // public function index() {
-    //      $protocols = Protocol::with('person')->get();
-    //     return Inertia::render('Protocols', ['protocols' => $protocols]);
-    // }
-    
-
+{  
     public function index(Request $request) {
-    return Inertia::render('Protocols', [
+    return Inertia::render('Protocol/Index', [
         'protocols' => Protocol::with('person')
             ->when($request->input('search'), function($query, $search) {
                 $query->whereHas('person', function($subquery) use ($search) {
@@ -47,7 +41,7 @@ class ProtocolController extends Controller
     public function show(string $id) {
         try {
             $protocol = Protocol::with('person')->findOrfail($id);
-            return Inertia::render('EditProtocol', ['protocol' => $protocol, 'people' => Person::all()]);
+            return Inertia::render('Protocol/Edit', ['protocol' => $protocol, 'people' => Person::all()]);
         } catch(ModelNotFoundException $e) {
             // implementar excessões depois
             return;
@@ -61,13 +55,13 @@ class ProtocolController extends Controller
             'person_id' => 'required|exists:people,id',
         ]);
         Protocol::where('id', $id)->update($protocolDataValidation);
-        return redirect()->intended('/protocols');
+        return redirect()->intended('/protocol/all');
     }
 
     public function destroy(string $id) {
         try {
             Protocol::where('id', $id)->delete();
-            return redirect()->intended('/protocols');
+            return redirect()->intended('/protocol/all');
         } catch(ModelNotFoundException $e) {
             // implementar excessões depois
             return;
