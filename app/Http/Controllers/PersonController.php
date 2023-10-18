@@ -24,7 +24,7 @@ class PersonController extends Controller
         $personDataValidation = $request->validate([
             'name' => 'required|string',
             'birthday' => 'required|date',
-            'cpf' => 'required|string|unique:people,cpf',
+            'cpf' => 'required|cpf|unique:people,cpf',
             'sex' => 'required|in:Masculino,Feminino,Outro',
             'city' => 'nullable|string',
             'neighborhood' => 'nullable|string',
@@ -73,12 +73,16 @@ class PersonController extends Controller
         }
     }
 
-    public function getPersonProtocols(string $id) {
-        try {
-            $personProtocols = Person::with('protocols')->findOrFail($id);
-            return Inertia::render('PersonProtocols', ['protocols' => $personProtocols]);
-        } catch (ModelNotFoundException $e){
-            return;
-        }
+    public function createPersonPage() {
+        return Inertia::render('Person/Create');
     }
+
+    // public function getPersonProtocols(string $id) {
+    //     try {
+    //         $personProtocols = Person::with('protocols')->findOrFail($id);
+    //         return Inertia::render('PersonProtocols', ['protocols' => $personProtocols]);
+    //     } catch (ModelNotFoundException $e){
+    //         return;
+    //     }
+    // }
 }
