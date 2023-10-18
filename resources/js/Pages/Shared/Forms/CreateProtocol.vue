@@ -12,7 +12,10 @@
             <form @submit.prevent="submitProtocol">
                 <div class="flex flex-col">
                     <div class="flex flex-col mb-4">
-                        <label for="name" class="block text-sm font-bold">
+                        <label
+                            for="description"
+                            class="block text-sm font-bold"
+                        >
                             Descrição
                         </label>
                         <textarea
@@ -34,7 +37,7 @@
                     >
                         <div class="flex flex-col mb-4 w-full">
                             <label
-                                for="birthday"
+                                for="deadline"
                                 class="block text-sm font-bold"
                             >
                                 Prazo
@@ -53,7 +56,10 @@
                             ></span>
                         </div>
                         <div class="flex flex-col mb-4 w-full">
-                            <label for="sex" class="block text-sm font-bold">
+                            <label
+                                for="person_id"
+                                class="block text-sm font-bold"
+                            >
                                 Contribuinte
                             </label>
                             <select
