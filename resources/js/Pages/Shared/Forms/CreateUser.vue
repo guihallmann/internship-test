@@ -94,8 +94,12 @@
                             class="p-3 text-lg w-full border-2 border-zinc-800 rounded-sm bg-zinc-100 focus:bg-emerald-100/80"
                         >
                             <option value="">Cargo</option>
-                            <option value="Ti">Admin TI</option>
-                            <option value="Sys">Admin</option>
+                            <option v-if="role === 'Ti'" value="Ti">
+                                Admin TI
+                            </option>
+                            <option v-if="role === 'Ti'" value="Sys">
+                                Admin
+                            </option>
                             <option value="Op">Operador</option>
                         </select>
                         <span
@@ -120,6 +124,11 @@
 </template>
 <script setup>
 import { useForm } from "@inertiajs/vue3";
+import { computed } from "vue";
+import { usePage } from "@inertiajs/vue3";
+
+const page = usePage();
+const role = computed(() => page.props.auth.user.role);
 
 let form = useForm({
     name: "",
