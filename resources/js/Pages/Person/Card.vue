@@ -24,14 +24,14 @@
         </span>
         <div class="flex justify-center items-center w-full h-full gap-4">
             <nav-link
-                class="font-medium bg-amber-500 p-2 rounded-sm text-white hover:bg-amber-600"
+                class="font-medium bg-amber-500 p-2 rounded-sm text-white hover:bg-amber-600 shadow-md"
                 :href="route('edit-person', { id: person.id })"
                 as="button"
             >
                 Editar
             </nav-link>
             <nav-link
-                class="font-medium bg-rose-500 p-2 rounded-sm text-white hover:bg-rose-600"
+                class="font-medium bg-rose-500 p-2 rounded-sm text-white hover:bg-rose-600 shadow-md"
                 :href="route('destroy-person', { id: person.id })"
                 as="button"
                 method="delete"

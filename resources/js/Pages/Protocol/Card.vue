@@ -13,7 +13,7 @@
         <span><strong>CPF: </strong>{{ protocol.person.cpf }}</span>
         <div class="flex justify-center items-center w-full gap-4">
             <nav-link
-                class="font-medium bg-amber-500 p-2 rounded-sm text-white hover:bg-amber-600"
+                class="font-medium bg-amber-500 p-2 rounded-sm text-white hover:bg-amber-600 shadow-md"
                 as="button"
                 :href="route('edit-protocol', { id: protocol.id })"
                 method="get"
@@ -21,7 +21,7 @@
                 Editar
             </nav-link>
             <nav-link
-                class="font-medium bg-rose-500 p-2 rounded-sm text-white hover:bg-rose-600"
+                class="font-medium bg-rose-500 p-2 rounded-sm text-white hover:bg-rose-600 shadow-md"
                 as="button"
                 :href="route('destroy-protocol', { id: protocol.id })"
                 method="delete"
