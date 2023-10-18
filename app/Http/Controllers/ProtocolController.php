@@ -67,4 +67,8 @@ class ProtocolController extends Controller
             return;
         }
     }
+
+    public function createProtocolPage() {
+        return Inertia::render('Protocol/Create', ['people' => Person::all()]);
+    }
 }
