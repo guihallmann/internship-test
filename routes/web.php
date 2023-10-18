@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\ProtocolController;
 use App\Http\Controllers\UserController;
@@ -37,9 +38,7 @@ Route::middleware('auth')->group(function () {
     // person routes
     Route::prefix('person')->group(function() {
         Route::get('/all', [PersonController::class, 'index']);
-        Route::get('/create', function () {
-            return Inertia::render('Person/Create');
-        });
+        Route::get('/create', [PersonController::class,'createPersonPage']);
         Route::post('/', [PersonController::class, 'store'])->name('store-person');
         Route::get('/edit/{id}', [PersonController::class, 'show'])->name('edit-person');
         Route::put('/edit/{id}', [PersonController::class, 'update'])->name('update-person');
@@ -49,9 +48,7 @@ Route::middleware('auth')->group(function () {
     // protocol routes
     Route::prefix('protocol')->group(function() {
         Route::get('/all', [ProtocolController::class, 'index']);
-        Route::get('/create', function () {
-            return Inertia::render('Protocol/Create', ['people' => Person::all()]);
-        });
+        Route::get('/create', [ProtocolController::class,'createProtocolPage']);
         Route::post('/', [ProtocolController::class, 'store'])->name('store-protocol');
         Route::get('/edit/{id}', [ProtocolController::class, 'show'])->name('edit-protocol');
         Route::put('/edit/{id}', [ProtocolController::class, 'update'])->name('update-protocol');
@@ -60,14 +57,22 @@ Route::middleware('auth')->group(function () {
     
     // user routes
     Route::prefix('user')->group(function() {
-        Route::get('/all', [UserController::class, 'index']);
-        Route::get('/create', function () {
-            return Inertia::render('User/Create');
-        });
+        Route::get('/all', [UserController::class, 'index'])->can('view', 'App\Models\User');
+        Route::get('/create',[UserController::class, 'createUserPage'] )->can('view', 'App\Models\User');
         Route::post('/', [UserController::class, 'store'])->name('store-user');
         Route::get('/edit/{id}', [UserController::class, 'show'])->name('edit-user');
         Route::put('/edit/{id}', [UserController::class, 'update'])->name('update-user');
         Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('destroy-user');
+    });
+
+    // department routes
+    Route::prefix('department')->group(function() {
+        Route::get('/all', [DepartmentController::class, 'index'])->can('view', 'App\Models\User');
+        Route::get('/create',[DepartmentController::class, 'createDepartmentPage'])->can('view', 'App\Models\User');;
+        Route::post('/', [DepartmentController::class, 'store'])->name('store-department');
+        Route::get('/edit/{id}', [DepartmentController::class, 'show'])->name('edit-department');
+        Route::put('/edit/{id}', [DepartmentController::class, 'update'])->name('update-department');
+        Route::delete('/delete/{id}', [DepartmentController::class, 'destroy'])->name('destroy-department');
     });
 });
 
