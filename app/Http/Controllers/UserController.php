@@ -60,4 +60,8 @@ class UserController extends Controller
             return;
         }
     }
+
+    public function createUserPage() {
+        return Inertia::render('User/Create');
+    }
 }
