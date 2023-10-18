@@ -27,12 +27,22 @@
                 <icon name="prots" />
             </nav-link>
             <nav-link
+                v-if="role === 'Ti' || role === 'Sys'"
                 class="flex justify-between items-center w-full gap-2 text-xl text-zinc-800 font-medium hover:underline"
                 href="/user/all"
                 :active="$page.component === 'User/Index'"
             >
                 Usuários
                 <icon name="users" />
+            </nav-link>
+            <nav-link
+                v-if="role === 'Ti' || role === 'Sys'"
+                class="flex justify-between items-center w-full gap-2 text-xl text-zinc-800 font-medium hover:underline"
+                href="/department/all"
+                :active="$page.component === 'Department/Index'"
+            >
+                Departamentos
+                <icon name="deps" />
             </nav-link>
             <nav-link
                 class="flex justify-between items-center w-full gap-2 text-xl text-zinc-800 font-medium hover:underline"
@@ -51,6 +61,12 @@
 import NavLink from "./NavLink.vue";
 import Icon from "./Icon.vue";
 import { ref } from "vue";
+
+import { computed } from "vue";
+import { usePage } from "@inertiajs/vue3";
+
+const page = usePage();
+const role = computed(() => page.props.auth.user.role);
 
 const isBurgerMenuOpen = ref(false);
 </script>
