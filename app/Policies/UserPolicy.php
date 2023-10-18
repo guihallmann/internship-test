@@ -18,12 +18,4 @@ class UserPolicy
     public function view(User $user) {
         return $user->role === 'Ti' || $user->role === 'Sys';
     }
-
-    public function createAll(User $user) {
-        return $user->role === 'Ti';
-    }
-
-    public function createOp(User $user) {
-        return $user->role === 'Ti' || $user->role === 'Sys';
-    }
 }
