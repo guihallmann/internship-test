@@ -12,6 +12,7 @@
         >
         <div class="flex justify-center items-center w-full gap-4">
             <nav-link
+                v-if="!removeButton"
                 class="font-medium bg-amber-500 p-2 rounded-sm text-white hover:bg-amber-600"
                 as="button"
                 :href="route('edit-user', { id: user.id })"
@@ -20,12 +21,27 @@
                 Editar
             </nav-link>
             <nav-link
+                v-if="!removeButton"
                 class="font-medium bg-rose-500 p-2 rounded-sm text-white hover:bg-rose-600"
                 as="button"
                 :href="route('destroy-user', { id: user.id })"
                 method="delete"
             >
                 Excluir
+            </nav-link>
+            <nav-link
+                v-if="removeButton"
+                class="font-medium bg-rose-500 p-2 rounded-sm text-white hover:bg-rose-600"
+                as="button"
+                :href="
+                    route('remove-user-from-department', {
+                        user_id: user.pivot.user_id,
+                        department_id: user.pivot.department_id,
+                    })
+                "
+                method="delete"
+            >
+                Remover
             </nav-link>
         </div>
     </div>
@@ -37,6 +53,7 @@ export default {
     components: { NavLink },
     props: {
         user: Object,
+        removeButton: Boolean,
     },
     methods: {
         formatDate(date) {
