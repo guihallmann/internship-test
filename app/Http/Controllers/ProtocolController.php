@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\Person;
 use App\Models\Protocol;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 
@@ -14,17 +16,35 @@ use Inertia\Inertia;
 class ProtocolController extends Controller
 {  
     public function index(Request $request) {
-    return Inertia::render('Protocol/Index', [
-        'protocols' => Protocol::with('person')
+        $user = Auth::user();
+
+        $query = Protocol::with(['person', 'department']) // Eager load the 'department' relationship
             ->when($request->input('search'), function($query, $search) {
                 $query->whereHas('person', function($subquery) use ($search) {
                     $subquery->where('name', 'like', '%' . $search . '%')
                             ->orWhere('cpf', 'like', '%' . $search . '%');
                 });
-            })
-            ->get(),
-        'filters' => $request->only(["search"])
-    ]);
+            });
+
+        if ($user->role !== 'Ti' && $user->role !== 'Sys') {
+            $departmentProtocols = $user->departments->flatMap(function ($department) {
+                return $department->protocols->pluck('id');
+            });
+
+            if ($departmentProtocols->isNotEmpty()) {
+                $query->whereIn('id', $departmentProtocols);
+            } else {
+                return Inertia::render('Protocol/Index', [
+                    'protocols' => [],
+                    'filters' => $request->only(["search"])
+                ]);
+            }
+        }
+
+        return Inertia::render('Protocol/Index', [
+            'protocols' => $query->get(),
+            'filters' => $request->only(["search"])
+        ]);
 }
 
 
@@ -33,6 +53,7 @@ class ProtocolController extends Controller
             'description' => 'required|string',
             'deadline' => 'required|integer',
             'person_id' => 'required|exists:people,id',
+            'department_id' => 'required|exists:departments,id'
         ]);
 
         Protocol::create($protocolDataValidation);
@@ -69,6 +90,12 @@ class ProtocolController extends Controller
     }
 
     public function createProtocolPage() {
-        return Inertia::render('Protocol/Create', ['people' => Person::all()]);
+        if(Auth::user()->role === 'Ti' || Auth::user()->role === 'Sys') {
+            $departments = Department::orderBy('name', 'ASC')->get();
+        } else {
+            $user = Auth::user();
+            $departments = $user->departments()->orderBy('name', 'ASC')->get(); // Load user's departments and order them by name.
+        }
+        return Inertia::render('Protocol/Create', ['people' => Person::all(), 'departments' => $departments]);
     }
 }
