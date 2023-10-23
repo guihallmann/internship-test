@@ -25,5 +25,6 @@ class Protocol extends Model
         'description',
         'deadline',
         'person_id',
+        'department_id'
     ];
 }
