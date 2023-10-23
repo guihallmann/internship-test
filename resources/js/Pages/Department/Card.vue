@@ -7,6 +7,13 @@
         }}</span>
         <div class="flex justify-start items-center w-full h-full gap-4">
             <nav-link
+                class="w-full font-medium bg-emerald-500 p-2 rounded-sm text-white hover:bg-emerald-600 shadow-md"
+                :href="route('show-department', { id: department.id })"
+                as="button"
+            >
+                Detalhes
+            </nav-link>
+            <nav-link
                 class="w-full font-medium bg-amber-500 p-2 rounded-sm text-white hover:bg-amber-600 shadow-md"
                 :href="route('edit-department', { id: department.id })"
                 as="button"
