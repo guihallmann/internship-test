@@ -1,10 +1,13 @@
 <template>
     <div
-        class="grid grid-rows-7 space-y-0.5 items-start justify-items-start border-2 border-zinc-800 rounded m-1 p-4 bg-zinc-100 font-normal text-xl hover:bg-zinc-200/80 sm:grid-cols-7 sm:grid-rows-none sm:space-x-0.5"
+        class="grid grid-rows-8 space-y-0.5 items-start justify-items-start border-2 border-zinc-800 rounded m-1 p-4 bg-zinc-100 font-normal text-xl hover:bg-zinc-200/80 sm:grid-cols-8 sm:grid-rows-none sm:space-x-0.5"
     >
         <span><strong>ID: </strong>{{ protocol.id }}</span>
         <span><strong>Descrição: </strong>{{ protocol.description }}</span>
         <span><strong>Prazo: </strong>{{ protocol.deadline }}</span>
+        <span>
+            <strong>Departamento: </strong>{{ protocol.department.name }}
+        </span>
         <span
             ><strong>Cadastrado em: </strong
             >{{ formatDate(protocol.created_at) }}</span

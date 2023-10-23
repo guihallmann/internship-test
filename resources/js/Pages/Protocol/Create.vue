@@ -1,7 +1,7 @@
 <template>
     <layout>
         <div class="flex justify-center">
-            <create-protocol :people="people" />
+            <create-protocol :people="people" :departments="departments" />
         </div>
     </layout>
 </template>
@@ -15,6 +15,7 @@ export default {
     },
     props: {
         people: Array,
+        departments: Array,
     },
 };
 </script>

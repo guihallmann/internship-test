@@ -5,7 +5,7 @@
         >
             <div class="mb-4">
                 <h1 class="text-2xl font-bold text-zinc-800">
-                    Cadastrar Protocol
+                    Cadastrar Protocolo
                 </h1>
                 <hr class="flex-grow" />
             </div>
@@ -79,6 +79,30 @@
                                 class="text-rose-500 text-xs mt-1 font-medium"
                             ></span>
                         </div>
+                        <div class="flex flex-col mb-4 w-full">
+                            <label
+                                for="department_id"
+                                class="block text-sm font-bold"
+                            >
+                                Departamento
+                            </label>
+                            <select
+                                name="department_id"
+                                id="department_id"
+                                v-model="form.department_id"
+                                class="p-3 text-lg w-full border-2 border-zinc-800 rounded-sm bg-zinc-100 focus:bg-emerald-100/80"
+                            >
+                                <option value="">Departamento</option>
+                                <option v-for="d in departments" :value="d.id">
+                                    {{ d.name }}
+                                </option>
+                            </select>
+                            <span
+                                v-if="form.errors.department_id"
+                                v-text="form.errors.department_id"
+                                class="text-rose-500 text-xs mt-1 font-medium"
+                            ></span>
+                        </div>
                     </div>
                 </div>
                 <div class="flex justify-center">
@@ -99,12 +123,14 @@ import { useForm } from "@inertiajs/vue3";
 
 const props = defineProps({
     people: Array,
+    departments: Array,
 });
 
 let form = useForm({
     description: "",
     deadline: "",
     person_id: "",
+    department_id: "",
 });
 
 const submitProtocol = () => {
