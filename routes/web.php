@@ -70,9 +70,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/all', [DepartmentController::class, 'index'])->can('view', 'App\Models\User');
         Route::get('/create',[DepartmentController::class, 'createDepartmentPage'])->can('view', 'App\Models\User');;
         Route::post('/', [DepartmentController::class, 'store'])->name('store-department');
-        Route::get('/edit/{id}', [DepartmentController::class, 'show'])->name('edit-department');
+        Route::get('/show/{id}', [DepartmentController::class, 'show'])->name('show-department');
+        Route::get('/edit/{id}', [DepartmentController::class, 'edit'])->name('edit-department');
         Route::put('/edit/{id}', [DepartmentController::class, 'update'])->name('update-department');
         Route::delete('/delete/{id}', [DepartmentController::class, 'destroy'])->name('destroy-department');
+        Route::post('/add-user', [DepartmentController::class, 'addUser'])->name('add-user-to-department');
+        Route::delete('/remove-user', [DepartmentController::class, 'removeUser'])->name('remove-user-from-department');
     });
 });
 
