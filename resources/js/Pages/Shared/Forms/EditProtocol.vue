@@ -12,7 +12,10 @@
             <form @submit.prevent="editProtocol">
                 <div class="flex flex-col">
                     <div class="flex flex-col mb-4">
-                        <label for="name" class="block text-sm font-bold">
+                        <label
+                            for="description"
+                            class="block text-sm font-bold"
+                        >
                             Descrição
                         </label>
                         <textarea
@@ -34,7 +37,7 @@
                     >
                         <div class="flex flex-col mb-4 w-full">
                             <label
-                                for="birthday"
+                                for="deadline"
                                 class="block text-sm font-bold"
                             >
                                 Prazo
@@ -53,7 +56,10 @@
                             ></span>
                         </div>
                         <div class="flex flex-col mb-4 w-full">
-                            <label for="sex" class="block text-sm font-bold">
+                            <label
+                                for="person_id"
+                                class="block text-sm font-bold"
+                            >
                                 Contribuinte
                             </label>
                             <select
@@ -77,6 +83,36 @@
                                 class="text-rose-500 text-xs mt-1 font-medium"
                             ></span>
                         </div>
+                        <div class="flex flex-col mb-4 w-full">
+                            <label
+                                for="department_id"
+                                class="block text-sm font-bold"
+                            >
+                                Departamento
+                            </label>
+                            <select
+                                name="department_id"
+                                id="department_id"
+                                v-model="form.department_id"
+                                class="p-3 text-lg w-full border-2 border-zinc-800 rounded-sm bg-zinc-100 focus:bg-emerald-100/80"
+                            >
+                                <option value="">Departamento</option>
+                                <option
+                                    v-for="department in departments"
+                                    :value="department.id"
+                                    :selected="
+                                        department.id === form.department_id
+                                    "
+                                >
+                                    {{ department.name }}
+                                </option>
+                            </select>
+                            <span
+                                v-if="form.errors.department_id"
+                                v-text="form.errors.department_id"
+                                class="text-rose-500 text-xs mt-1 font-medium"
+                            ></span>
+                        </div>
                     </div>
                 </div>
                 <div class="flex justify-center">
@@ -85,7 +121,7 @@
                         :disabled="form.processing"
                         class="w-full border-2 border-zinc-800 rounded-sm text-xl font-bold p-2 mt-4 bg-emerald-400 hover:bg-emerald-400/80 sm:w-1/4"
                     >
-                        Cadastrar
+                        Salvar
                     </button>
                 </div>
             </form>
@@ -98,12 +134,14 @@ import { useForm } from "@inertiajs/vue3";
 const props = defineProps({
     protocol: Object,
     people: Array,
+    departments: Array,
 });
 
 let form = useForm({
     description: props.protocol.description,
     deadline: props.protocol.deadline,
     person_id: props.protocol.person_id,
+    department_id: props.protocol.department_id,
 });
 
 const editProtocol = () => {
