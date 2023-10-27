@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\FollowUpController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\ProtocolController;
 use App\Http\Controllers\UserController;
@@ -76,6 +77,15 @@ Route::middleware('auth')->group(function () {
         Route::delete('/delete/{id}', [DepartmentController::class, 'destroy'])->name('destroy-department');
         Route::post('/add-user', [DepartmentController::class, 'addUser'])->name('add-user-to-department');
         Route::delete('/remove-user', [DepartmentController::class, 'removeUser'])->name('remove-user-from-department');
+    });
+
+    // follow up routes
+    Route::prefix('follow-up')->group(function() {
+        Route::get('/all', [FollowUpController::class, 'index']);
+        Route::post('/', [FollowUpController::class, 'store'])->name('store-followUp');
+        Route::get('/edit/{id}', [FollowUpController::class, 'show'])->name('edit-followUp');
+        Route::put('/edit/{id}', [FollowUpController::class, 'update'])->name('update-followUp');
+        Route::delete('/delete/{id}', [FollowUpController::class, 'destroy'])->name('destroy-followUp');
     });
 });
 
