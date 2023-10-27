@@ -12,14 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('protocols', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->longText('description');
             $table->integer('deadline');
             $table->unsignedBigInteger('person_id');
             $table->unsignedBigInteger('department_id');
+            $table->timestamps();
+
             $table->foreign('person_id')->references('id')->on('people')->onDelete('cascade');
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
-            $table->timestamps();
         });
     }
 
