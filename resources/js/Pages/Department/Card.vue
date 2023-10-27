@@ -32,12 +32,10 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import NavLink from "../Shared/NavLink.vue";
-export default {
-    components: { NavLink },
-    props: {
-        department: Object,
-    },
-};
+
+const props = defineProps({
+    department: Object,
+});
 </script>

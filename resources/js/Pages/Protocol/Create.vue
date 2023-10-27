@@ -5,17 +5,12 @@
         </div>
     </layout>
 </template>
-<script>
+<script setup>
 import Layout from "../Shared/Layout.vue";
 import CreateProtocol from "../Shared/Forms/CreateProtocol.vue";
-export default {
-    components: {
-        Layout,
-        CreateProtocol,
-    },
-    props: {
-        people: Array,
-        departments: Array,
-    },
-};
+
+const props = defineProps({
+    people: Array,
+    departments: Array,
+});
 </script>

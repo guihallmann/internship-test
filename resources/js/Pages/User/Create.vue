@@ -5,14 +5,7 @@
         </div>
     </layout>
 </template>
-<script>
+<script setup>
 import Layout from "../Shared/Layout.vue";
 import CreateUser from "../Shared/Forms/CreateUser.vue";
-
-export default {
-    components: {
-        Layout,
-        CreateUser,
-    },
-};
 </script>

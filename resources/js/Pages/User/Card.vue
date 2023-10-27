@@ -47,24 +47,12 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import NavLink from "../Shared/NavLink.vue";
-export default {
-    components: { NavLink },
-    props: {
-        user: Object,
-        removeButton: Boolean,
-    },
-    methods: {
-        formatDate(date) {
-            const dateUTC = new Date(Date.parse(date));
-            const localDate = dateUTC.toLocaleDateString("pt-BR", {
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
-            });
-            return localDate;
-        },
-    },
-};
+import { formatDate } from "../../utils/date";
+
+const props = defineProps({
+    user: Object,
+    removeButton: Boolean,
+});
 </script>

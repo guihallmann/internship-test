@@ -5,17 +5,11 @@
         </div>
     </layout>
 </template>
-<script>
+<script setup>
 import Layout from "../Shared/Layout.vue";
 import CreateDepartment from "../Shared/Forms/CreateDepartment.vue";
 
-export default {
-    components: {
-        Layout,
-        CreateDepartment,
-    },
-    props: {
-        departments: Array,
-    },
-};
+const props = defineProps({
+    departments: Array,
+});
 </script>

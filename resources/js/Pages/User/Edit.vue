@@ -5,17 +5,11 @@
         </div>
     </layout>
 </template>
-<script>
+<script setup>
 import Layout from "../Shared/Layout.vue";
 import EditUser from "../Shared/Forms/EditUser.vue";
 
-export default {
-    components: {
-        Layout,
-        EditUser,
-    },
-    props: {
-        user: Object,
-    },
-};
+const props = defineProps({
+    user: Object,
+});
 </script>

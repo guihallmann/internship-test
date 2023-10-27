@@ -1,22 +1,23 @@
 <template>
     <layout>
-        <div class="flex justify-center">
-            <edit-protocol :protocol="protocol" :people="people" />
+        <div class="flex flex-col justify-center">
+            <edit-protocol
+                :protocol="protocol"
+                :people="people"
+                :departments="departments"
+            />
+            <create-follow-up :protocol_id="protocol.id" />
         </div>
     </layout>
 </template>
-<script>
+<script setup>
 import Layout from "../Shared/Layout.vue";
 import EditProtocol from "../Shared/Forms/EditProtocol.vue";
+import CreateFollowUp from "../Shared/Forms/CreateFollowUp.vue";
 
-export default {
-    components: {
-        Layout,
-        EditProtocol,
-    },
-    props: {
-        protocol: Object,
-        people: Array,
-    },
-};
+const props = defineProps({
+    protocol: Object,
+    people: Array,
+    departments: Array,
+});
 </script>

@@ -5,17 +5,11 @@
         </div>
     </layout>
 </template>
-<script>
+<script setup>
 import Layout from "../Shared/Layout.vue";
 import EditDepartment from "../Shared/Forms/EditDepartment.vue";
 
-export default {
-    components: {
-        Layout,
-        EditDepartment,
-    },
-    props: {
-        department: Object,
-    },
-};
+const props = defineProps({
+    department: Object,
+});
 </script>
