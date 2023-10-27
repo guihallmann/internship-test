@@ -5,22 +5,23 @@
         <span><strong>CPF: </strong>{{ person.cpf }}</span>
         <span><strong>Nome: </strong>{{ person.name }}</span>
         <span
-            ><strong>Nascimento: </strong
-            >{{ formatDate(person.birthday) }}</span
-        >
+            ><strong>Nascimento: </strong>
+            {{ formatDate(person.birthday) }}
+        </span>
         <span><strong>Sexo: </strong>{{ person.sex }}</span>
         <span
             ><strong>Endereço: </strong>
-            {{
+            <!-- {{
                 [
                     person.street ? `${person.street}` : "",
-                    person.number ? `nº ${person.number}` : "",
+                    person.number ? `nº ${person.number}` : "s/n",
                     person.neighborhood ? `${person.neighborhood}` : "",
                     person.city ? `${person.city}` : "",
                 ]
                     .filter(Boolean)
                     .join(", ")
-            }}
+            }} -->
+            {{ formatAddress(person) }}
         </span>
         <div class="flex justify-center items-center w-full h-full gap-4">
             <nav-link
@@ -42,19 +43,12 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import NavLink from "../Shared/NavLink.vue";
-export default {
-    components: { NavLink },
-    props: {
-        person: Object,
-    },
-    methods: {
-        formatDate(date) {
-            const splitDate = date.split("-");
-            const newDate = `${splitDate[2]}/${splitDate[1]}/${splitDate[0]}`;
-            return newDate;
-        },
-    },
-};
+import { formatDate } from "../../utils/date";
+import { formatAddress } from "../../utils/address";
+
+const props = defineProps({
+    person: Object,
+});
 </script>
