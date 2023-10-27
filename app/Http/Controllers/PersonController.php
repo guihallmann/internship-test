@@ -31,6 +31,13 @@ class PersonController extends Controller
             'street' => 'nullable|string',
             'number' => 'nullable|string',
             'complement' => 'nullable|string',
+        ],[
+            'name' => "Informe um nome",
+            'birthday' => "Informe uma data de nascimento",
+            'cpf' => "Informe um CPF",
+            'cpf.cpf' => "CPF inválido",
+            'cpf.unique' => "CPF já cadastrado",
+            'sex' => "Informe um sexo"
         ]);
 
         Person::create($personDataValidation);
