@@ -40,6 +40,14 @@
                 Departamentos
                 <icon name="deps" />
             </nav-link>
+            <nav-link
+                class="flex justify-between items-center w-full gap-2 text-xl text-white font-medium hover:underline"
+                href="/follow-up/all"
+                :active="$page.component === 'FollowUp/Index'"
+            >
+                Acompanhamentos
+                <icon name="follow-up" />
+            </nav-link>
         </div>
 
         <nav-link
