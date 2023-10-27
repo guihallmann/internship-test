@@ -46,6 +46,14 @@
             </nav-link>
             <nav-link
                 class="flex justify-between items-center w-full gap-2 text-xl text-zinc-800 font-medium hover:underline"
+                href="/follow-up/all"
+                :active="$page.component === 'FollowUp/Index'"
+            >
+                Acompanhamentos
+                <icon name="follow-up" />
+            </nav-link>
+            <nav-link
+                class="flex justify-between items-center w-full gap-2 text-xl text-zinc-800 font-medium hover:underline"
                 href="/logout"
                 method="post"
                 as="button"
