@@ -60,9 +60,15 @@ class ProtocolController extends Controller
     }
 
     public function show(string $id) {
+        if(Auth::user()->role === 'Ti' || Auth::user()->role === 'Sys') {
+            $departments = Department::orderBy('name', 'ASC')->get();
+        } else {
+            $user = Auth::user();
+            $departments = $user->departments()->orderBy('name', 'ASC')->get(); // Load user's departments and order them by name.
+        }
         try {
-            $protocol = Protocol::with('person')->findOrfail($id);
-            return Inertia::render('Protocol/Edit', ['protocol' => $protocol, 'people' => Person::all()]);
+            $protocol = Protocol::with('person', 'department')->findOrfail($id);
+            return Inertia::render('Protocol/Edit', ['protocol' => $protocol, 'people' => Person::all(), 'departments' => $departments]);
         } catch(ModelNotFoundException $e) {
             // implementar excessões depois
             return;
@@ -74,6 +80,7 @@ class ProtocolController extends Controller
             'description' => 'required|string',
             'deadline' => 'required|integer',
             'person_id' => 'required|exists:people,id',
+            'department_id' => 'required|exists:departments,id'
         ]);
         Protocol::where('id', $id)->update($protocolDataValidation);
         return redirect()->intended('/protocol/all');
