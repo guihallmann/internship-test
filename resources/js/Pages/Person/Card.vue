@@ -9,18 +9,9 @@
             {{ formatDate(person.birthday) }}
         </span>
         <span><strong>Sexo: </strong>{{ person.sex }}</span>
-        <span
-            ><strong>Endereço: </strong>
-            <!-- {{
-                [
-                    person.street ? `${person.street}` : "",
-                    person.number ? `nº ${person.number}` : "s/n",
-                    person.neighborhood ? `${person.neighborhood}` : "",
-                    person.city ? `${person.city}` : "",
-                ]
-                    .filter(Boolean)
-                    .join(", ")
-            }} -->
+        <span>
+            <strong>Endereço: </strong>
+
             {{ formatAddress(person) }}
         </span>
         <div class="flex justify-center items-center w-full h-full gap-4">
@@ -31,24 +22,45 @@
             >
                 Editar
             </nav-link>
-            <nav-link
+            <button
                 class="font-medium bg-rose-500 p-2 rounded-sm text-white hover:bg-rose-600 shadow-md"
-                :href="route('destroy-person', { id: person.id })"
-                as="button"
-                method="delete"
+                type="button"
+                @click="showModal = !showModal"
             >
                 Excluir
-            </nav-link>
+            </button>
         </div>
     </div>
+    <delete-modal
+        :active="showModal"
+        @cancel="showModal = false"
+        @delete="destroyPerson(person.id)"
+    />
 </template>
 
 <script setup>
 import NavLink from "../Shared/NavLink.vue";
+import DeleteModal from "../Shared/DeleteModal.vue";
+import { ref } from "vue";
+import { router } from "@inertiajs/vue3";
 import { formatDate } from "../../utils/date";
 import { formatAddress } from "../../utils/address";
+import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
+
+const toast = useToast();
+
+const showModal = ref(false);
 
 const props = defineProps({
     person: Object,
 });
+
+const destroyPerson = (id) => {
+    router.delete(route("destroy-person", id), {
+        onSuccess: () => {
+            toast.error("Contribuinte excluído com sucesso!");
+        },
+    });
+};
 </script>

@@ -20,22 +20,43 @@
             >
                 Editar
             </nav-link>
-            <nav-link
-                class="w-full font-medium bg-rose-500 p-2 rounded-sm text-white hover:bg-rose-600 shadow-md"
-                :href="route('destroy-department', { id: department.id })"
-                as="button"
-                method="delete"
+            <button
+                class="font-medium bg-rose-500 p-2 rounded-sm text-white hover:bg-rose-600 shadow-md"
+                type="button"
+                @click="showModal = !showModal"
             >
                 Excluir
-            </nav-link>
+            </button>
         </div>
     </div>
+    <delete-modal
+        :active="showModal"
+        @cancel="showModal = false"
+        @delete="destroyDepartment(department.id)"
+    />
 </template>
 
 <script setup>
 import NavLink from "../Shared/NavLink.vue";
+import DeleteModal from "../Shared/DeleteModal.vue";
+import { ref } from "vue";
+import { router } from "@inertiajs/vue3";
+import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
+
+const toast = useToast();
+
+const showModal = ref(false);
 
 const props = defineProps({
     department: Object,
 });
+
+const destroyDepartment = (id) => {
+    router.delete(route("destroy-department", id), {
+        onSuccess: () => {
+            toast.error("Acompanhamento excluído com sucesso!");
+        },
+    });
+};
 </script>

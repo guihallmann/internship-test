@@ -23,23 +23,44 @@
             >
                 Editar
             </nav-link>
-            <nav-link
+            <button
                 class="font-medium bg-rose-500 p-2 rounded-sm text-white hover:bg-rose-600 shadow-md"
-                as="button"
-                :href="route('destroy-protocol', { id: protocol.id })"
-                method="delete"
+                type="button"
+                @click="showModal = !showModal"
             >
                 Excluir
-            </nav-link>
+            </button>
         </div>
     </div>
+    <delete-modal
+        :active="showModal"
+        @cancel="showModal = false"
+        @delete="destroyProtocol(protocol.id)"
+    />
 </template>
 
 <script setup>
 import NavLink from "../Shared/NavLink.vue";
+import DeleteModal from "../Shared/DeleteModal.vue";
+import { ref } from "vue";
+import { router } from "@inertiajs/vue3";
 import { formatDate } from "../../utils/date";
+import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
+
+const toast = useToast();
+
+const showModal = ref(false);
 
 const props = defineProps({
     protocol: Object,
 });
+
+const destroyProtocol = (id) => {
+    router.delete(route("destroy-protocol", id), {
+        onSuccess: () => {
+            toast.error("Protocolo excluído com sucesso!");
+        },
+    });
+};
 </script>
