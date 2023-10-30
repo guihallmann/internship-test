@@ -45,6 +45,10 @@
 </template>
 <script setup>
 import { useForm } from "@inertiajs/vue3";
+import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
+
+const toast = useToast();
 
 const props = defineProps({
     departmentId: Number,
@@ -59,7 +63,9 @@ let form = useForm({
 let addUser = () => {
     form.post("/department/add-user", {
         preserveScroll: true,
-        onSuccess: () => form.reset(),
+        onSuccess: () => {
+            form.reset(), toast.success("Usuário adicionado ao departamento!");
+        },
     });
 };
 </script>
