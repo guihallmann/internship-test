@@ -48,6 +48,10 @@
 </template>
 <script setup>
 import { useForm } from "@inertiajs/vue3";
+import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
+
+const toast = useToast();
 
 const props = defineProps({
     protocol_id: Number,
@@ -61,7 +65,9 @@ let form = useForm({
 const submitFollowUp = () => {
     form.post("/follow-up", {
         preserveScroll: true,
-        onSuccess: () => form.reset(),
+        onSuccess: () => {
+            form.reset(), toast.success("Acompanhamento criado com sucesso!");
+        },
     });
 };
 </script>

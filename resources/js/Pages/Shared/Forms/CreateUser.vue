@@ -126,6 +126,10 @@
 import { useForm } from "@inertiajs/vue3";
 import { computed } from "vue";
 import { usePage } from "@inertiajs/vue3";
+import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
+
+const toast = useToast();
 
 const page = usePage();
 const role = computed(() => page.props.auth.user.role);
@@ -141,7 +145,9 @@ let form = useForm({
 const submitUser = () => {
     form.post("/user", {
         preserveScroll: true,
-        onSuccess: () => form.reset(),
+        onSuccess: () => {
+            form.reset(), toast.success("Usuário cadastrado com sucesso!");
+        },
     });
 };
 </script>

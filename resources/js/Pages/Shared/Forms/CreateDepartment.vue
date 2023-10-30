@@ -47,6 +47,10 @@
 </template>
 <script setup>
 import { useForm } from "@inertiajs/vue3";
+import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
+
+const toast = useToast();
 
 const props = defineProps({
     people: Array,
@@ -59,7 +63,9 @@ let form = useForm({
 const submitDepartment = () => {
     form.post("/department", {
         preserveScroll: true,
-        onSuccess: () => form.reset(),
+        onSuccess: () => {
+            form.reset(), toast.success("Departamento criado com sucesso!");
+        },
     });
 };
 </script>

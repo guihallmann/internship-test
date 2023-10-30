@@ -202,6 +202,10 @@
 </template>
 <script setup>
 import { useForm } from "@inertiajs/vue3";
+import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
+
+const toast = useToast();
 
 let form = useForm({
     name: "",
@@ -218,7 +222,10 @@ let form = useForm({
 const submitPerson = () => {
     form.post("/person", {
         preserveScroll: true,
-        onSuccess: () => form.reset(),
+        onSuccess: () => {
+            form.reset();
+            toast.success("Contribuinte cadastrado com sucesso!");
+        },
     });
 };
 </script>
