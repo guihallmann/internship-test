@@ -23,6 +23,7 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request) {
         $userDataValidation = $request->validated();
+        $userDataValidation['cpf'] = str_replace(['.', '-'], '', $userDataValidation['cpf']);
         User::create($userDataValidation);
     }
 
@@ -38,6 +39,7 @@ class UserController extends Controller
 
     public function update(EditUserRequest $request, string $id) {
         $userDataValidation = $request->validated();
+        $userDataValidation['cpf'] = str_replace(['.', '-'], '', $userDataValidation['cpf']);
         User::where('id', $id)->update($userDataValidation);
         return redirect()->intended('/user/all');
     }
