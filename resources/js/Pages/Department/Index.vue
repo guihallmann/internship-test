@@ -18,7 +18,7 @@
             </Link>
         </div>
         <no-results :size="departments.length" />
-        <div class="grid grid-cols-1 sm:grid-cols-5 w-full">
+        <div class="grid grid-cols-1 sm:grid-cols-4 w-full">
             <card
                 v-for="department in props.departments"
                 :key="department.id"

@@ -4,9 +4,7 @@
             class="w-full mx-auto p-8 border-2 border-black rounded shadow-xl sm:max-w-full"
         >
             <div class="mb-4">
-                <h1 class="text-2xl font-bold text-zinc-800">
-                    Cadastrar Contribuinte
-                </h1>
+                <h1 class="text-2xl font-bold text-zinc-800">Editar Usuário</h1>
                 <hr class="flex-grow" />
             </div>
             <form @submit.prevent="editUser">

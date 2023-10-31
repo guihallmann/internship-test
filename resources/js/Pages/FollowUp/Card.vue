@@ -6,7 +6,7 @@
         <span><strong>Observação: </strong>{{ followUp.observation }}</span>
         <span> <strong>Protocolo: </strong>{{ followUp.protocol_id }} </span>
 
-        <span> <strong>Contribuinte: </strong>{{ followUp.user_id }} </span>
+        <span> <strong>Usuário: </strong>{{ followUp.user_id }} </span>
         <span
             ><strong>Cadastrado em: </strong
             >{{ formatDate(followUp.created_at) }}</span

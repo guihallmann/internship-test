@@ -5,7 +5,7 @@
         >
             <div class="mb-4">
                 <h1 class="text-2xl font-bold text-zinc-800">
-                    Cadastrar Contribuinte
+                    Cadastrar Usuário
                 </h1>
                 <hr class="flex-grow" />
             </div>

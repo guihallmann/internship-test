@@ -5,35 +5,35 @@
         <span class="flex justify-center font-bold text-2xl w-full gap-1">{{
             department.name
         }}</span>
-        <div class="flex justify-start items-center w-full h-full gap-4">
+        <div class="flex justify-start items-center w-full h-full gap-8">
             <nav-link
-                class="w-full font-medium bg-emerald-500 p-2 rounded-sm text-white hover:bg-emerald-600 shadow-md"
+                class="w-1/3 font-medium bg-emerald-500 p-2 rounded-sm text-white hover:bg-emerald-600 shadow-md"
                 :href="route('show-department', { id: department.id })"
                 as="button"
             >
                 Detalhes
             </nav-link>
             <nav-link
-                class="w-full font-medium bg-amber-500 p-2 rounded-sm text-white hover:bg-amber-600 shadow-md"
+                class="w-1/3 font-medium bg-amber-500 p-2 rounded-sm text-white hover:bg-amber-600 shadow-md"
                 :href="route('edit-department', { id: department.id })"
                 as="button"
             >
                 Editar
             </nav-link>
             <button
-                class="font-medium bg-rose-500 p-2 rounded-sm text-white hover:bg-rose-600 shadow-md"
+                class="w-1/3 font-medium bg-rose-500 p-2 rounded-sm text-white hover:bg-rose-600 shadow-md"
                 type="button"
                 @click="showModal = !showModal"
             >
                 Excluir
             </button>
         </div>
+        <delete-modal
+            :active="showModal"
+            @cancel="showModal = false"
+            @delete="destroyDepartment(department.id)"
+        />
     </div>
-    <delete-modal
-        :active="showModal"
-        @cancel="showModal = false"
-        @delete="destroyDepartment(department.id)"
-    />
 </template>
 
 <script setup>
