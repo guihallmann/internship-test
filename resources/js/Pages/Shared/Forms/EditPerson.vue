@@ -193,7 +193,7 @@
                         :disabled="form.processing"
                         class="w-full border-2 border-zinc-800 rounded-sm text-xl font-bold p-2 mt-4 bg-emerald-400 hover:bg-emerald-400/80 sm:w-1/4"
                     >
-                        Editar
+                        Salvar
                     </button>
                 </div>
             </form>
@@ -202,6 +202,10 @@
 </template>
 <script setup>
 import { useForm } from "@inertiajs/vue3";
+import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
+
+const toast = useToast();
 
 const props = defineProps({
     person: Object,
@@ -220,6 +224,10 @@ let form = useForm({
 });
 
 const editPerson = () => {
-    form.put(`/person/edit/${props.person.id}`);
+    form.put(`/person/edit/${props.person.id}`, {
+        onSuccess: () => {
+            form.reset(), toast.warning("Contribuinte editado com sucesso!");
+        },
+    });
 };
 </script>

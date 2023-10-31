@@ -130,6 +130,10 @@
 </template>
 <script setup>
 import { useForm } from "@inertiajs/vue3";
+import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
+
+const toast = useToast();
 
 const props = defineProps({
     protocol: Object,
@@ -145,6 +149,10 @@ let form = useForm({
 });
 
 const editProtocol = () => {
-    form.put(`/protocol/edit/${props.protocol.id}`);
+    form.put(`/protocol/edit/${props.protocol.id}`, {
+        onSuccess: () => {
+            form.reset(), toast.warning("Protocolo editado com sucesso!");
+        },
+    });
 };
 </script>

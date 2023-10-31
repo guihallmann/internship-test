@@ -48,6 +48,10 @@
 </template>
 <script setup>
 import { useForm } from "@inertiajs/vue3";
+import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
+
+const toast = useToast();
 
 const props = defineProps({
     followUp: Object,
@@ -58,6 +62,10 @@ let form = useForm({
 });
 
 const editFollowUp = () => {
-    form.put(`/follow-up/edit/${props.followUp.id}`);
+    form.put(`/follow-up/edit/${props.followUp.id}`, {
+        onSuccess: () => {
+            form.reset(), toast.warning("Acompanhamento editado com sucesso!");
+        },
+    });
 };
 </script>

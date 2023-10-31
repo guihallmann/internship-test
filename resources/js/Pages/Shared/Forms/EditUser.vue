@@ -92,7 +92,7 @@
                             :disabled="form.processing"
                             class="w-full border-2 border-zinc-800 rounded-sm text-xl font-bold p-2 mt-4 bg-emerald-400 hover:bg-emerald-400/80 sm:w-1/4"
                         >
-                            Cadastrar
+                            Salvar
                         </button>
                     </div>
                 </div>
@@ -102,6 +102,10 @@
 </template>
 <script setup>
 import { useForm } from "@inertiajs/vue3";
+import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
+
+const toast = useToast();
 
 const props = defineProps({
     user: Object,
@@ -115,6 +119,10 @@ let form = useForm({
 });
 
 const editUser = () => {
-    form.put(`/user/edit/${props.user.id}`);
+    form.put(`/user/edit/${props.user.id}`, {
+        onSuccess: () => {
+            form.reset(), toast.warning("Usuário editado com sucesso!");
+        },
+    });
 };
 </script>
