@@ -56,6 +56,7 @@
                             id="cpf"
                             placeholder="CPF"
                             v-model="form.cpf"
+                            v-mask="['###.###.###-##']"
                         />
                         <span
                             v-if="form.errors.cpf"
@@ -122,5 +123,13 @@ const editUser = () => {
             form.reset(), toast.warning("Usuário editado com sucesso!");
         },
     });
+};
+</script>
+
+<script>
+import { mask } from "vue-the-mask";
+
+export default {
+    directives: { mask },
 };
 </script>
