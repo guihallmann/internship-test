@@ -2,7 +2,7 @@
     <div
         class="grid grid-rows-6 space-y-0.5 items-start justify-items-start border-2 border-zinc-800 rounded m-1 p-4 bg-zinc-100 font-normal text-xl hover:bg-zinc-200/80 sm:grid-cols-6 sm:grid-rows-none"
     >
-        <span><strong>CPF: </strong>{{ person.cpf }}</span>
+        <span><strong>CPF: </strong>{{ formatCpf(person.cpf) }}</span>
         <span><strong>Nome: </strong>{{ person.name }}</span>
         <span
             ><strong>Nascimento: </strong>
@@ -45,6 +45,7 @@ import { ref } from "vue";
 import { router } from "@inertiajs/vue3";
 import { formatDate } from "../../utils/date";
 import { formatAddress } from "../../utils/address";
+import { formatCpf } from "../../utils/cpf";
 import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
 

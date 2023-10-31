@@ -4,7 +4,7 @@
     >
         <span><strong>Nome: </strong>{{ user.name }}</span>
         <span><strong>Email: </strong>{{ user.email }}</span>
-        <span><strong>CPF: </strong>{{ user.cpf }}</span>
+        <span><strong>CPF: </strong>{{ formatCpf(user.cpf) }}</span>
         <span><strong>Cargo: </strong>{{ user.role }}</span>
         <span
             ><strong>Cadastrado em: </strong
@@ -53,6 +53,7 @@ import DeleteModal from "../Shared/DeleteModal.vue";
 import { ref } from "vue";
 import { router } from "@inertiajs/vue3";
 import { formatDate } from "../../utils/date";
+import { formatCpf } from "../../utils/cpf";
 import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
 
