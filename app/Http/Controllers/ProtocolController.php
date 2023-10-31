@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProtocolRequest;
 use App\Models\Department;
 use App\Models\Person;
 use App\Models\Protocol;
@@ -48,14 +49,8 @@ class ProtocolController extends Controller
 }
 
 
-    public function store(Request $request) {
-        $protocolDataValidation = $request->validate([
-            'description' => 'required|string',
-            'deadline' => 'required|integer',
-            'person_id' => 'required|exists:people,id',
-            'department_id' => 'required|exists:departments,id'
-        ]);
-
+    public function store(StoreProtocolRequest $request) {
+        $protocolDataValidation = $request->validated();
         Protocol::create($protocolDataValidation);
     }
 
@@ -75,13 +70,8 @@ class ProtocolController extends Controller
         }
     }
 
-    public function update(Request $request, string $id) {
-        $protocolDataValidation = $request->validate([
-            'description' => 'required|string',
-            'deadline' => 'required|integer',
-            'person_id' => 'required|exists:people,id',
-            'department_id' => 'required|exists:departments,id'
-        ]);
+    public function update(StoreProtocolRequest $request, string $id) {
+        $protocolDataValidation = $request->validated();
         Protocol::where('id', $id)->update($protocolDataValidation);
         return redirect()->intended('/protocol/all');
     }

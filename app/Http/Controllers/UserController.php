@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EditUserRequest;
+use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -19,14 +21,8 @@ class UserController extends Controller
         ]); 
     }
 
-    public function store(Request $request) {
-        $userDataValidation = $request->validate([
-            'name' => 'required|string',
-            'email' => ['required', 'email'],
-            'cpf' => 'required|cpf',
-            'role' => 'required|in:Ti,Sys,Op',
-            'password' => 'required|min:6|max:20'
-        ]);
+    public function store(StoreUserRequest $request) {
+        $userDataValidation = $request->validated();
         User::create($userDataValidation);
     }
 
@@ -40,13 +36,8 @@ class UserController extends Controller
         }
     }
 
-    public function update(Request $request, string $id) {
-        $userDataValidation = $request->validate([
-            'name' => 'required|string',
-            'email' => ['required', 'email'],
-            'cpf' => 'required|cpf',
-            'role' => 'required|in:Ti,Sys,Op',
-        ]);
+    public function update(EditUserRequest $request, string $id) {
+        $userDataValidation = $request->validated();
         User::where('id', $id)->update($userDataValidation);
         return redirect()->intended('/user/all');
     }

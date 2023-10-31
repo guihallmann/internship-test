@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePersonRequest;
 use App\Models\Person;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -20,26 +21,8 @@ class PersonController extends Controller
     }
 
 
-    public function store(Request $request) {
-        $personDataValidation = $request->validate([
-            'name' => 'required|string',
-            'birthday' => 'required|date',
-            'cpf' => 'required|cpf|unique:people,cpf',
-            'sex' => 'required|in:Masculino,Feminino,Outro',
-            'city' => 'nullable|string',
-            'neighborhood' => 'nullable|string',
-            'street' => 'nullable|string',
-            'number' => 'nullable|string',
-            'complement' => 'nullable|string',
-        ],[
-            'name' => "Informe um nome",
-            'birthday' => "Informe uma data de nascimento",
-            'cpf' => "Informe um CPF",
-            'cpf.cpf' => "CPF inválido",
-            'cpf.unique' => "CPF já cadastrado",
-            'sex' => "Informe um sexo"
-        ]);
-
+    public function store(StorePersonRequest $request) {
+        $personDataValidation = $request->validated();
         Person::create($personDataValidation);
     }
 
@@ -53,19 +36,8 @@ class PersonController extends Controller
         }
     }
 
-    public function update(Request $request, string $id) {
-        $person = Person::findOrFail($id);
-        $personDataValidation = $request->validate([
-            'name' => 'required|string',
-            'birthday' => 'required|date',
-            'cpf' => 'required|unique:people,cpf,' . $person->id,
-            'sex' => 'required|in:Masculino,Feminino,Outro',
-            'city' => 'nullable|string',
-            'neighborhood' => 'nullable|string',
-            'street' => 'nullable|string',
-            'number' => 'nullable|string',
-            'complement' => 'nullable|string',
-        ]);
+    public function update(StorePersonRequest $request, string $id) {
+        $personDataValidation = $request->validated();
         Person::where('id', $id)->update($personDataValidation);
         return redirect()->intended('/person/all');
     }

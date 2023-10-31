@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreDepartmentRequest;
 use App\Models\Department;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -21,10 +22,8 @@ class DepartmentController extends Controller
         ]); 
     }
 
-    public function store(Request $request) {
-        $departmentDataValidation = $request->validate([
-            'name' => 'required|string'
-        ]);
+    public function store(StoreDepartmentRequest $request) {
+        $departmentDataValidation = $request->validated();
         Department::create($departmentDataValidation);
     }
 
@@ -53,10 +52,8 @@ class DepartmentController extends Controller
         }
     }
 
-    public function update(Request $request, string $id) {
-        $departmentDataValidation = $request->validate([
-            'name' => 'string|required'
-        ]);
+    public function update(StoreDepartmentRequest $request, string $id) {
+        $departmentDataValidation = $request->validated();
         Department::where('id', $id)->update($departmentDataValidation);
         return redirect()->intended('/department/all');
     }

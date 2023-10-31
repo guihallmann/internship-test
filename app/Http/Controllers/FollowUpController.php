@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreFollowUpRequest;
 use App\Models\Department;
 use App\Models\FollowUp;
 use App\Models\Person;
@@ -43,29 +44,19 @@ class FollowUpController extends Controller
     }
 
 
-    public function store(Request $request) {
-        $followUpDataValidation = $request->validate([
-            'observation' => 'required|string',
-            'protocol_id' => 'required|exists:protocols,id',
-        ]);
+    public function store(StoreFollowUpRequest $request) {
+        $followUpDataValidation = $request->validated();
 
         $userId = auth()->user()->id;
+        $followUpDataValidation['user_id'] = $userId;
 
-        FollowUp::create([
-            'observation' => $followUpDataValidation['observation'],
-            'protocol_id' => $followUpDataValidation['protocol_id'],
-            'user_id' => $userId,
-        ]);
+        FollowUp::create($followUpDataValidation);
     }
 
-    public function update(Request $request, $id) {
+    public function update(StoreFollowUpRequest $request, $id) {
         $followUp = FollowUp::findOrFail($id);
-        $validatedData = $request->validate([
-            'observation' => 'required|string',
-        ]);
-        $followUp->update([
-            'observation' => $validatedData['observation'],
-        ]);
+        $validatedData = $request->validated();
+        $followUp->update($validatedData);
 
         return redirect()->intended('/follow-up/all');
     }
