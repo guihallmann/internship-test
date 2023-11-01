@@ -11,16 +11,10 @@ use Inertia\Inertia;
 
 class UserController extends Controller
 {
-    public function index(Request $request) {
-        return Inertia::render('User/Index', [
-            'users' => User::query()
-            ->when($request->input('search'), function($query, $search) {
-                $query->where('name', 'like', "%{$search}%")->orWhere('cpf', 'like', "%{$search}%");
-            })->get(),
-            'filters' => $request->only(["search"]),
-        ]); 
-    }
 
+    public function index() {
+        return Inertia::Render('User/Index', ['users' => User::all()]);
+    }
     public function store(StoreUserRequest $request) {
         $userDataValidation = $request->validated();
         $userDataValidation['cpf'] = str_replace(['.', '-'], '', $userDataValidation['cpf']);

@@ -16,39 +16,18 @@ use Inertia\Inertia;
 
 class ProtocolController extends Controller
 {  
-    public function index(Request $request) {
+    public function index() {
         $user = Auth::user();
-
-        $query = Protocol::with(['person', 'department']) // Eager load the 'department' relationship
-            ->when($request->input('search'), function($query, $search) {
-                $query->whereHas('person', function($subquery) use ($search) {
-                    $subquery->where('name', 'like', '%' . $search . '%')
-                            ->orWhere('cpf', 'like', '%' . $search . '%');
-                });
-            });
-
-        if ($user->role !== 'Ti' && $user->role !== 'Sys') {
-            $departmentProtocols = $user->departments->flatMap(function ($department) {
-                return $department->protocols->pluck('id');
-            });
-
-            if ($departmentProtocols->isNotEmpty()) {
-                $query->whereIn('id', $departmentProtocols);
-            } else {
-                return Inertia::render('Protocol/Index', [
-                    'protocols' => [],
-                    'filters' => $request->only(["search"])
-                ]);
-            }
+        if ($user->role === 'Op') {
+            $protocols = Protocol::whereIn('department_id', $user->departments->pluck('id'))
+                ->with('person', 'department', 'followUp')
+                ->get();
+        } else {
+            $protocols = Protocol::with('person', 'department', 'followUp')->get();
         }
-
-        return Inertia::render('Protocol/Index', [
-            'protocols' => $query->get(),
-            'filters' => $request->only(["search"])
-        ]);
-}
-
-
+        
+        return Inertia::render('Protocol/Index', ['protocols' => $protocols]);
+    }
     public function store(StoreProtocolRequest $request) {
         $protocolDataValidation = $request->validated();
         Protocol::create($protocolDataValidation);
