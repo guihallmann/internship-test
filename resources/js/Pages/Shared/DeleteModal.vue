@@ -9,7 +9,7 @@
             >
                 <h2 class="text-lg font-bold mb-4">Confirmar exclusão</h2>
                 <p class="text-zinc-600 mb-4">
-                    Tem certeza que deseja excluir este cadastro?
+                    Tem certeza que deseja excluir este registro?
                 </p>
                 <div class="flex justify-end space-x-3">
                     <button
