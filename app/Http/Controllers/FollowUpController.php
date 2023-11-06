@@ -21,11 +21,11 @@ class FollowUpController extends Controller
         $user = Auth::user();
 
         if ($user->role === 'Ti' || $user->role === 'Sys') {
-            $followUps = FollowUp::with('protocol')
+            $followUps = FollowUp::with('protocol','user')
                 ->orderBy('created_at', 'desc')
                 ->get();
         } else {
-            $followUps = FollowUp::with('protocol')
+            $followUps = FollowUp::with('protocol','user')
                 ->where('user_id', $user->id)
                 ->orderBy('created_at', 'desc')
                 ->get();
