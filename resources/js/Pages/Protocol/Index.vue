@@ -60,7 +60,7 @@ import "datatables.net-responsive";
 import Layout from "../Shared/Layout.vue";
 import DeleteModal from "../Shared/DeleteModal.vue";
 import { ref, onMounted } from "vue";
-import { formatDate } from "../../utils/date";
+import { expireDate, formatDate } from "../../utils/date";
 import { formatCpf } from "../../utils/cpf";
 import { router } from "@inertiajs/vue3";
 import { useToast } from "vue-toast-notification";
@@ -88,7 +88,10 @@ onMounted(function () {
 const columns = [
     { data: "id" },
     { data: "description" },
-    { data: "deadline" },
+    {
+        data: null,
+        render: (data) => expireDate(new Date(data.created_at), data.deadline),
+    },
     { data: null, render: (data) => formatDate(data.created_at) },
     { data: null, render: (data) => data.department.name },
     { data: null, render: (data) => data.person.name },
