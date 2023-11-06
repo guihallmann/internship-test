@@ -12,13 +12,10 @@ use Inertia\Inertia;
 
 class DepartmentController extends Controller
 {
-    public function index(Request $request) {
+    public function index() {
+        $departments = Department::withCount('protocols', 'users')->get();
         return Inertia::render('Department/Index', [
-            'departments' => Department::query()
-            ->when($request->input('search'), function($query, $search) {
-                $query->where('name', 'like', "%{$search}%");
-            })->get(),
-            'filters' => $request->only(["search"])
+            'departments' => $departments
         ]); 
     }
 
