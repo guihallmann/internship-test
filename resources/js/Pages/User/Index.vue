@@ -16,6 +16,12 @@
                 >
                     Excluir
                 </button>
+                <Link
+                    class="font-medium bg-emerald-500 p-2 rounded-sm text-white hover:bg-emerald-600 shadow-md"
+                    href="/user/create"
+                >
+                    Novo
+                </Link>
             </div>
             <DataTable
                 id="datatable"
@@ -57,6 +63,7 @@ import { formatCpf } from "../../utils/cpf";
 import { router } from "@inertiajs/vue3";
 import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
+import { Link } from "@inertiajs/vue3";
 
 DataTable.use(DataTablesCore);
 
