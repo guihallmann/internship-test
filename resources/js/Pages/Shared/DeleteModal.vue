@@ -46,7 +46,7 @@ const props = defineProps({
     removeButton: Boolean,
 });
 
-const emit = defineEmits(["cancel", "delete"]);
+const emit = defineEmits(["cancel", "delete", "remove"]);
 
 const cancel = () => {
     emit("cancel");
