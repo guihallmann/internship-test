@@ -47,7 +47,7 @@
     <delete-modal
         :active="showModal"
         @cancel="showModal = false"
-        @delete="destroyUser"
+        @delete="destroyPerson"
     />
 </template>
 <script setup>
@@ -128,7 +128,7 @@ const editPerson = () => {
     else router.get(route("edit-person", id));
 };
 
-const destroyUser = () => {
+const destroyPerson = () => {
     const id = getSelectedRowId();
     router.delete(route("destroy-person", id), {
         onSuccess: () => {
