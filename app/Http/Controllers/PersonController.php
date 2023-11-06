@@ -10,13 +10,9 @@ use Inertia\Inertia;
 
 class PersonController extends Controller
 {
-    public function index(Request $request) {
+    public function index() {
         return Inertia::render('Person/Index', [
-            'people' => Person::query()
-            ->when($request->input('search'), function($query, $search) {
-                $query->where('name', 'like', "%{$search}%")->orWhere('cpf', 'like', "%{$search}%");
-            })->get(),
-            'filters' => $request->only(["search"])
+            'people' => Person::all(),
         ]); 
     }
 
