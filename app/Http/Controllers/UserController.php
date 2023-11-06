@@ -6,7 +6,6 @@ use App\Http\Requests\EditUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class UserController extends Controller
@@ -34,13 +33,13 @@ class UserController extends Controller
     public function update(EditUserRequest $request, string $id) {
         $userDataValidation = $request->validated();
         $userDataValidation['cpf'] = str_replace(['.', '-'], '', $userDataValidation['cpf']);
-        User::where('id', $id)->update($userDataValidation);
+        User::findOrFail($id)->update($userDataValidation);
         return redirect()->intended('/user/all');
     }
 
     public function destroy(string $id) {
         try {
-            User::where('id', $id)->delete();
+            User::findOrFail($id)->delete();
             return redirect()->intended('/user/all');
         } catch(ModelNotFoundException $e) {
             // implementar excessões depois

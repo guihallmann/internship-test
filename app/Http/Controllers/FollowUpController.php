@@ -63,7 +63,7 @@ class FollowUpController extends Controller
 
     public function destroy($id)
     {
-        $followUp = FollowUp::findOrFail($id);
-        $followUp->delete();
+        FollowUp::findOrFail($id)->delete();
+        return redirect()->intended('/follow-up/all');    
     }
 }

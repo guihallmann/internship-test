@@ -51,13 +51,13 @@ class ProtocolController extends Controller
 
     public function update(StoreProtocolRequest $request, string $id) {
         $protocolDataValidation = $request->validated();
-        Protocol::where('id', $id)->update($protocolDataValidation);
+        Protocol::findOrFail($id)->update($protocolDataValidation);
         return redirect()->intended('/protocol/all');
     }
 
     public function destroy(string $id) {
         try {
-            Protocol::where('id', $id)->delete();
+            Protocol::findOrFail($id)->delete();
             return redirect()->intended('/protocol/all');
         } catch(ModelNotFoundException $e) {
             // implementar excessões depois

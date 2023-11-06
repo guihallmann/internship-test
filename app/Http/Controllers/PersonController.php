@@ -36,13 +36,13 @@ class PersonController extends Controller
     public function update(StorePersonRequest $request, string $id) {
         $personDataValidation = $request->validated();
         $personDataValidation['cpf'] = str_replace(['.', '-'], '', $personDataValidation['cpf']);
-        Person::where('id', $id)->update($personDataValidation);
+        Person::findOrFail($id)->update($personDataValidation);
         return redirect()->intended('/person/all');
     }
 
     public function destroy(string $id) {
         try {
-            Person::where('id', $id)->delete();
+            Person::findOrFail($id)->delete();
             return redirect()->intended('/person/all');
         } catch(ModelNotFoundException $e) {
             // implementar excessões depois

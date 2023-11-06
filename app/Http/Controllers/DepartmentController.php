@@ -22,6 +22,7 @@ class DepartmentController extends Controller
     public function store(StoreDepartmentRequest $request) {
         $departmentDataValidation = $request->validated();
         Department::create($departmentDataValidation);
+        return redirect()->intended('/department/all');
     }
 
     public function show(string $id) {
@@ -51,13 +52,13 @@ class DepartmentController extends Controller
 
     public function update(StoreDepartmentRequest $request, string $id) {
         $departmentDataValidation = $request->validated();
-        Department::where('id', $id)->update($departmentDataValidation);
+        Department::findOrFail($id)->update($departmentDataValidation);
         return redirect()->intended('/department/all');
     }
 
     public function destroy(string $id) {
         try {
-            Department::where('id', $id)->delete();
+            Department::findOrFail($id)->delete();
             return redirect()->intended('/department/all');
         } catch(ModelNotFoundException $e) {
             // implementar excessões depois
