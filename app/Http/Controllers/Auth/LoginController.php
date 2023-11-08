@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
 class LoginController extends Controller
@@ -20,6 +19,11 @@ class LoginController extends Controller
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
+        ],
+        [
+            'email.required' => 'O campo email é obrigatório',
+            'email.email' => 'Informe um endereço de email válido',
+            'password.required' => 'O campo senha é obrigatório',
         ]);
  
         if (Auth::attempt($credentials)) {
@@ -29,7 +33,7 @@ class LoginController extends Controller
         }
  
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => 'Credenciais incorretas',
         ])->onlyInput('email');
     }
 
