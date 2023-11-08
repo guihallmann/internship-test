@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuditController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\FollowUpController;
@@ -86,6 +87,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/edit/{id}', [FollowUpController::class, 'show'])->name('edit-followUp');
         Route::put('/edit/{id}', [FollowUpController::class, 'update'])->name('update-followUp');
         Route::delete('/delete/{id}', [FollowUpController::class, 'destroy'])->name('destroy-followUp');
+    });
+
+    //audits routes
+    Route::prefix('audit')->group(function() {
+        Route::get('/all', [AuditController::class,'index'])->can('view', 'App\Models\User' );
+        Route::get('/show/{id}', [AuditController::class, 'show'])->name('show-audit')->can('view', 'App\Models\User' );
+
     });
 });
 
