@@ -53,6 +53,15 @@
                 <icon name="follow-up" />
             </nav-link>
             <nav-link
+                v-if="role === 'Ti' || role === 'Sys'"
+                class="flex justify-between items-center w-full gap-2 text-xl text-zinc-800 font-medium hover:underline"
+                href="/audit/all"
+                :active="$page.component === 'Audit/Index'"
+            >
+                Auditoria
+                <icon name="audit" />
+            </nav-link>
+            <nav-link
                 class="flex justify-between items-center w-full gap-2 text-xl text-zinc-800 font-medium hover:underline"
                 href="/logout"
                 method="post"
