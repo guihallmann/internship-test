@@ -48,6 +48,15 @@
                 Acompanhamentos
                 <icon name="follow-up" />
             </nav-link>
+            <nav-link
+                v-if="role === 'Ti' || role === 'Sys'"
+                class="flex justify-between items-center w-full gap-2 text-xl text-white font-medium hover:underline"
+                href="/audit/all"
+                :active="$page.component === 'Audit/Index'"
+            >
+                Auditoria
+                <icon name="audit" />
+            </nav-link>
         </div>
 
         <nav-link
@@ -59,7 +68,7 @@
             Sair
             <icon name="logout" />
         </nav-link>
-        <div class="sm:hidden">
+        <div class="sm:hidden z-50">
             <burguer />
         </div>
     </nav>
