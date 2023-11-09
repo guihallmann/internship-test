@@ -1,7 +1,7 @@
 <template>
     <layout>
         <div
-            class="flex flex-col text-lg m-4 p-4 border-2 border-black rounded shadow-xl sm:grid grid-cols-2"
+            class="flex flex-col text-lg m-4 p-4 border-2 space-x-4 border-black rounded shadow-xl sm:grid grid-cols-2"
         >
             <div class="flex flex-col space-y-4">
                 <h1 class="text-2xl font-bold">Registro</h1>
@@ -10,8 +10,12 @@
                 <p><strong>Ação:</strong> {{ audit.event }}</p>
                 <p><strong>Tabela:</strong> {{ audit.auditable_type }}</p>
                 <p><strong>ID Registro:</strong> {{ audit.auditable_id }}</p>
-                <p><strong>Valores antigos:</strong> {{ audit.old_values }}</p>
-                <p><strong>Valores novos:</strong> {{ audit.new_values }}</p>
+                <p class="break-all">
+                    <strong>Valores antigos:</strong> {{ audit.old_values }}
+                </p>
+                <p class="break-all">
+                    <strong>Valores novos:</strong> {{ audit.new_values }}
+                </p>
                 <p><strong>URL:</strong> {{ audit.url }}</p>
                 <p><strong>IP:</strong> {{ audit.ip_address }}</p>
                 <p>
