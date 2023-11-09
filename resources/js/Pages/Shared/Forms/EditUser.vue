@@ -20,6 +20,7 @@
                             id="name"
                             placeholder="Nome completo"
                             v-model="form.name"
+                            @change="form.validate('name')"
                         />
                         <span
                             v-if="form.errors.name"
@@ -38,6 +39,7 @@
                             id="email"
                             placeholder="Email"
                             v-model="form.email"
+                            @change="form.validate('email')"
                         />
                         <span
                             v-if="form.errors.email"
@@ -57,6 +59,7 @@
                             placeholder="CPF"
                             v-model="form.cpf"
                             v-mask="['###.###.###-##']"
+                            @change="form.validate('cpf')"
                         />
                         <span
                             v-if="form.errors.cpf"
@@ -100,7 +103,7 @@
     </div>
 </template>
 <script setup>
-import { useForm } from "@inertiajs/vue3";
+import { useForm } from "laravel-precognition-vue-inertia";
 import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
 
@@ -110,7 +113,7 @@ const props = defineProps({
     user: Object,
 });
 
-let form = useForm({
+const form = useForm("put", route("update-user", props.user.id), {
     name: props.user.name,
     email: props.user.email,
     cpf: props.user.cpf,
@@ -118,9 +121,9 @@ let form = useForm({
 });
 
 const editUser = () => {
-    form.put(`/user/edit/${props.user.id}`, {
+    form.submit({
         onSuccess: () => {
-            form.reset(), toast.warning("Usuário editado com sucesso!");
+            form.reset(), toast.success("Usuário editado com sucesso!");
         },
     });
 };

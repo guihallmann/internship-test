@@ -25,6 +25,7 @@
                             id="description"
                             placeholder="Descrição"
                             v-model="form.description"
+                            @change="form.validate('description')"
                         />
                         <span
                             v-if="form.errors.description"
@@ -48,6 +49,7 @@
                                 name="deadline"
                                 id="deadline"
                                 v-model="form.deadline"
+                                @change="form.validate('deadline')"
                             />
                             <span
                                 v-if="form.errors.deadline"
@@ -119,7 +121,7 @@
     </div>
 </template>
 <script setup>
-import { useForm } from "@inertiajs/vue3";
+import { useForm } from "laravel-precognition-vue-inertia";
 import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
 
@@ -130,7 +132,7 @@ const props = defineProps({
     departments: Array,
 });
 
-let form = useForm({
+const form = useForm("post", route("store-protocol"), {
     description: "",
     deadline: "",
     person_id: "",
@@ -138,8 +140,7 @@ let form = useForm({
 });
 
 const submitProtocol = () => {
-    form.post("/protocol", {
-        preserveScroll: true,
+    form.submit({
         onSuccess: () => {
             form.reset(), toast.success("Protocolo cadastrado com sucesso!");
         },

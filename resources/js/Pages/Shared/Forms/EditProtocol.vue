@@ -25,6 +25,7 @@
                             id="description"
                             placeholder="Descrição"
                             v-model="form.description"
+                            @change="form.validate('description')"
                         />
                         <span
                             v-if="form.errors.description"
@@ -48,6 +49,7 @@
                                 name="deadline"
                                 id="deadline"
                                 v-model="form.deadline"
+                                @change="form.validate('deadline')"
                             />
                             <span
                                 v-if="form.errors.deadline"
@@ -129,7 +131,7 @@
     </div>
 </template>
 <script setup>
-import { useForm } from "@inertiajs/vue3";
+import { useForm } from "laravel-precognition-vue-inertia";
 import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
 
@@ -141,7 +143,7 @@ const props = defineProps({
     departments: Array,
 });
 
-let form = useForm({
+const form = useForm("put", route("update-protocol", props.protocol.id), {
     description: props.protocol.description,
     deadline: props.protocol.deadline,
     person_id: props.protocol.person_id,
@@ -149,9 +151,9 @@ let form = useForm({
 });
 
 const editProtocol = () => {
-    form.put(`/protocol/edit/${props.protocol.id}`, {
+    form.submit({
         onSuccess: () => {
-            form.reset(), toast.warning("Protocolo editado com sucesso!");
+            form.reset(), toast.success("Protocolo editado com sucesso!");
         },
     });
 };

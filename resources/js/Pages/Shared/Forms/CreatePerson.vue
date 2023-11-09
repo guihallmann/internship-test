@@ -22,6 +22,7 @@
                             id="name"
                             placeholder="Nome completo"
                             v-model="form.name"
+                            @change="form.validate('name')"
                         />
                         <span
                             v-if="form.errors.name"
@@ -40,6 +41,7 @@
                             name="birthday"
                             id="birthday"
                             v-model="form.birthday"
+                            @change="form.validate('birthday')"
                         />
                         <span
                             v-if="form.errors.birthday"
@@ -60,6 +62,7 @@
                             placeholder="CPF"
                             v-model="form.cpf"
                             v-mask="['###.###.###-##']"
+                            @change="form.validate('cpf')"
                         />
                         <span
                             v-if="form.errors.cpf"
@@ -76,6 +79,7 @@
                             name="sex"
                             id="sex"
                             v-model="form.sex"
+                            @change="form.validate('sex')"
                             class="p-3 text-lg w-full border-2 border-zinc-800 rounded-sm bg-zinc-100 focus:bg-emerald-100/80"
                         >
                             <option value="">Sexo</option>
@@ -202,13 +206,13 @@
     </div>
 </template>
 <script setup>
-import { useForm } from "@inertiajs/vue3";
+import { useForm } from "laravel-precognition-vue-inertia";
 import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
 
 const toast = useToast();
 
-let form = useForm({
+const form = useForm("post", route("store-person"), {
     name: "",
     birthday: "",
     cpf: "",
@@ -221,11 +225,9 @@ let form = useForm({
 });
 
 const submitPerson = () => {
-    form.post("/person", {
-        preserveScroll: true,
+    form.submit({
         onSuccess: () => {
-            form.reset();
-            toast.success("Contribuinte cadastrado com sucesso!");
+            form.reset(), toast.success("Contribuinte cadastrado com sucesso!");
         },
     });
 };

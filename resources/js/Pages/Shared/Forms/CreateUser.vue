@@ -22,6 +22,7 @@
                             id="name"
                             placeholder="Nome completo"
                             v-model="form.name"
+                            @change="form.validate('name')"
                         />
                         <span
                             v-if="form.errors.name"
@@ -40,6 +41,7 @@
                             id="email"
                             placeholder="Email"
                             v-model="form.email"
+                            @change="form.validate('email')"
                         />
                         <span
                             v-if="form.errors.email"
@@ -59,6 +61,7 @@
                             placeholder="CPF"
                             v-model="form.cpf"
                             v-mask="['###.###.###-##']"
+                            @change="form.validate('cpf')"
                         />
                         <span
                             v-if="form.errors.cpf"
@@ -77,6 +80,7 @@
                             id="password"
                             placeholder="Senha"
                             v-model="form.password"
+                            @change="form.validate('password')"
                         />
                         <span
                             v-if="form.errors.password"
@@ -124,7 +128,7 @@
     </div>
 </template>
 <script setup>
-import { useForm } from "@inertiajs/vue3";
+import { useForm } from "laravel-precognition-vue-inertia";
 import { computed } from "vue";
 import { usePage } from "@inertiajs/vue3";
 import { useToast } from "vue-toast-notification";
@@ -135,7 +139,7 @@ const toast = useToast();
 const page = usePage();
 const role = computed(() => page.props.auth.user.role);
 
-let form = useForm({
+const form = useForm("post", route("store-user"), {
     name: "",
     email: "",
     cpf: "",
@@ -144,8 +148,7 @@ let form = useForm({
 });
 
 const submitUser = () => {
-    form.post("/user", {
-        preserveScroll: true,
+    form.submit({
         onSuccess: () => {
             form.reset(), toast.success("Usuário cadastrado com sucesso!");
         },

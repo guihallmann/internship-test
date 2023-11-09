@@ -22,6 +22,7 @@ class EditUserRequest extends FormRequest
      */
     public function rules(): array
     {
+        $this->cleanCpf();
         return [
             'name' => 'required|string',
             'email' => 'required|email',
@@ -42,5 +43,12 @@ class EditUserRequest extends FormRequest
             'role.required' => 'O campo cargo é obrigatório',
             'role.in' => 'Informe um cargo válido',
         ];
+    }
+
+    protected function cleanCpf()
+    {
+        $cpf = $this->input('cpf');
+        $cleanedCpf = str_replace(['.', '-'], '', $cpf);
+        $this->merge(['cpf' => $cleanedCpf]);
     }
 }

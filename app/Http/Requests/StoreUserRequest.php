@@ -22,10 +22,11 @@ class StoreUserRequest extends FormRequest
      */
     public function rules(): array
     {
+        $this->cleanCpf();
         return [
             'name' => 'required|string',
-            'email' => 'required|email',
-            'cpf' => ['required','cpf', Rule::unique('users')->ignore(request()->id)],
+            'email' => ['required','email', Rule::unique('users')->ignore(request()->id)],
+            'cpf' => ['required','cpf', Rule::unique('users')->ignore(request()->id), Rule::unique('people')->ignore(request()->id)],
             'role' => 'required|in:Ti,Sys,Op',
             'password' => 'required|min:6|max:20'
         ];
@@ -37,14 +38,22 @@ class StoreUserRequest extends FormRequest
             'name.required' => 'O campo nome é obrigatório',
             'email.required' => 'O campo email é obrigatório',
             'email.email' => 'Informe um endereço de email válido',
+            'email.unique' => 'Email já cadastrado',
+            'cpf.unique' => 'CPF já cadastrado',
             'cpf.required' => 'O campo CPF é obrigatório',
             'cpf.cpf' => 'Informe um CPF válido',
-            'cpf.unique' => 'CPF já cadastrado',
             'role.required' => 'O campo cargo é obrigatório',
             'role.in' => 'Informe um cargo válido',
             'password.required' => 'O campo senha é obrigatório',
-            'password.min' => 'A senha deve ter no mínimo :min characters',
-            'password.max' => 'A senha deve ter no máximo :max characters',
+            'password.min' => 'A senha deve ter no mínimo :min caracteres',
+            'password.max' => 'A senha deve ter no máximo :max caracteres',
         ];
+    }
+
+    protected function cleanCpf()
+    {
+        $cpf = $this->input('cpf');
+        $cleanedCpf = str_replace(['.', '-'], '', $cpf);
+        $this->merge(['cpf' => $cleanedCpf]);
     }
 }

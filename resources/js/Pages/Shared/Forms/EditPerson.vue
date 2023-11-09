@@ -22,6 +22,7 @@
                             id="name"
                             placeholder="Nome completo"
                             v-model="form.name"
+                            @change="form.validate('name')"
                         />
                         <span
                             v-if="form.errors.name"
@@ -40,6 +41,7 @@
                             name="birthday"
                             id="birthday"
                             v-model="form.birthday"
+                            @change="form.validate('birthday')"
                         />
                         <span
                             v-if="form.errors.birthday"
@@ -60,6 +62,7 @@
                             placeholder="CPF"
                             v-model="form.cpf"
                             v-mask="['###.###.###-##']"
+                            @change="form.validate('cpf')"
                         />
                         <span
                             v-if="form.errors.cpf"
@@ -77,6 +80,7 @@
                             id="sex"
                             v-model="form.sex"
                             class="p-3 text-lg w-full border-2 border-zinc-800 rounded-sm bg-zinc-100"
+                            @change="form.validate('sex')"
                         >
                             <option value="">Sexo</option>
                             <option value="Masculino">Masculino</option>
@@ -202,7 +206,7 @@
     </div>
 </template>
 <script setup>
-import { useForm } from "@inertiajs/vue3";
+import { useForm } from "laravel-precognition-vue-inertia";
 import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
 
@@ -212,7 +216,7 @@ const props = defineProps({
     person: Object,
 });
 
-let form = useForm({
+const form = useForm("put", route("update-person", props.person.id), {
     name: props.person.name,
     birthday: props.person.birthday,
     cpf: props.person.cpf,
@@ -225,9 +229,9 @@ let form = useForm({
 });
 
 const editPerson = () => {
-    form.put(`/person/edit/${props.person.id}`, {
+    form.submit({
         onSuccess: () => {
-            form.reset(), toast.warning("Contribuinte editado com sucesso!");
+            form.reset(), toast.success("Contribuinte editado com sucesso!");
         },
     });
 };

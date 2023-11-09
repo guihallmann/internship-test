@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use App\Rules\UniqueCPF;
 
 class StorePersonRequest extends FormRequest
 {
@@ -22,10 +23,11 @@ class StorePersonRequest extends FormRequest
      */
     public function rules(): array
     {
+        $this->cleanCpf();
         return [
             'name' => 'required|string',
             'birthday' => 'required|date',
-            'cpf' => ['required','cpf', Rule::unique('users')->ignore(request()->id)],
+            'cpf' => ['required','cpf', Rule::unique('users')->ignore(request()->id), Rule::unique('people')->ignore(request()->id)],
             'sex' => 'required|in:Masculino,Feminino,Outro',
             'city' => 'nullable|string',
             'neighborhood' => 'nullable|string',
@@ -41,9 +43,16 @@ class StorePersonRequest extends FormRequest
             'name.required' => "O campo nome é obrigatório",
             'birthday.required' => "O campo data de nascimento é obrigatório",
             'sex.required' => "O campo sexo é obrigatório",
+            'cpf.unique' => 'CPF já cadastrado',
             'cpf.required' => 'O campo CPF é obrigatório',
             'cpf.cpf' => 'Informe um CPF válido',
-            'cpf.unique' => 'CPF já cadastrado',
         ];
+    }
+
+    protected function cleanCpf()
+    {
+        $cpf = $this->input('cpf');
+        $cleanedCpf = str_replace(['.', '-'], '', $cpf);
+        $this->merge(['cpf' => $cleanedCpf]);
     }
 }
