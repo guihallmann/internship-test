@@ -18,6 +18,7 @@
                         id="email"
                         placeholder="Email"
                         v-model="form.email"
+                        @change="form.validate('email')"
                     />
                     <span
                         v-if="form.errors.email"
@@ -37,6 +38,7 @@
                         id="password"
                         placeholder="Senha"
                         v-model="form.password"
+                        @change="form.validate('password')"
                     />
                     <span
                         v-if="form.errors.password"
@@ -55,14 +57,14 @@
     </div>
 </template>
 <script setup>
-import { useForm } from "@inertiajs/vue3";
+import { useForm } from "laravel-precognition-vue-inertia";
 
-let form = useForm({
+let form = useForm("post", route("login"), {
     email: "",
     password: "",
 });
 
 const submitLogin = () => {
-    form.post("/login", form);
+    form.submit();
 };
 </script>

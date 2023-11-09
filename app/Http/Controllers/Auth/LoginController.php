@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginUserRequest;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
@@ -14,19 +14,11 @@ class LoginController extends Controller
         return Inertia::render('Auth/Login');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(LoginUserRequest $request): RedirectResponse
     {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ],
-        [
-            'email.required' => 'O campo email é obrigatório',
-            'email.email' => 'Informe um endereço de email válido',
-            'password.required' => 'O campo senha é obrigatório',
-        ]);
+        $userDataValidation = $request->validated();
  
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($userDataValidation)) {
             $request->session()->regenerate();
  
             return redirect()->intended();
