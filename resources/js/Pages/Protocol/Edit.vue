@@ -7,6 +7,7 @@
                 :departments="departments"
             />
             <create-follow-up :protocol_id="protocol.id" />
+            <create-attachment :protocol="protocol" />
         </div>
     </layout>
 </template>
@@ -14,6 +15,7 @@
 import Layout from "../Shared/Layout.vue";
 import EditProtocol from "../Shared/Forms/EditProtocol.vue";
 import CreateFollowUp from "../Shared/Forms/CreateFollowUp.vue";
+import createAttachment from "../Shared/Forms/createAttachment.vue";
 
 const props = defineProps({
     protocol: Object,
