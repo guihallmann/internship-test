@@ -18,7 +18,7 @@
         th, td {
             border: 1px solid #ddd;
             padding: 8px;
-            text-align: left;
+            text-align: justify;
         }
 
         th {
@@ -33,7 +33,7 @@
             <tr>
                 <th>ID</th>
                 <th>Descrição</th>
-                <th>Data de registro</th>
+                <th>Data</th>
             </tr>
         </thead>
         <tbody>

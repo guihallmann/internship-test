@@ -18,7 +18,7 @@
         th, td {
             border: 1px solid #ddd;
             padding: 8px;
-            text-align: left;
+            text-align: justify;
         }
 
         th {
@@ -30,7 +30,7 @@
     <h1>Relatório de Protocolo</h1>
     <p><strong>ID Protocolo:</strong> {{ $protocol->id }}</p>
     <p><strong>Descrição:</strong> {{ $protocol->description }}</p>
-    <p><strong>Data de Registro:</strong> {{ \Carbon\Carbon::parse($protocol->created_at)->format('d/m/Y H:i:s') }}</p>
+    <p><strong>Data:</strong> {{ \Carbon\Carbon::parse($protocol->created_at)->format('d/m/Y H:i:s') }}</p>
 
     @if($followUps && count($followUps) > 0)
         <h3>Acompanhamentos</h3>
