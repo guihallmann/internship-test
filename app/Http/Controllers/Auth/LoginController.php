@@ -21,7 +21,7 @@ class LoginController extends Controller
         if (Auth::attempt($userDataValidation)) {
             $request->session()->regenerate();
  
-            return redirect()->intended();
+            return redirect()->intended('/person/all');
         }
  
         return back()->withErrors([

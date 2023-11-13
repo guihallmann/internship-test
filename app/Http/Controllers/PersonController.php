@@ -20,6 +20,7 @@ class PersonController extends Controller
         $personDataValidation = $request->validated();
         $personDataValidation['cpf'] = str_replace(['.', '-'], '', $personDataValidation['cpf']);
         Person::create($personDataValidation);
+        return redirect()->intended('/person/all');
     }
 
     public function show(string $id) {

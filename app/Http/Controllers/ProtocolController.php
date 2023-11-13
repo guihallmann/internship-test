@@ -116,7 +116,7 @@ class ProtocolController extends Controller
                     $this->uploadAttachment($file, $protocolId);
                 }
             } else {
-                return back()->withErrors(['files' => 'Você pode anexar mais ' . $remainingAttachments . ' ' . ($remainingAttachments == 1 ? 'arquivo' : 'arquivos')])->onlyInput('files');
+                return back()->withErrors(['files' => 'Você pode anexar apenas mais ' . $remainingAttachments . ' ' . ($remainingAttachments == 1 ? 'arquivo neste protocolo' : 'arquivos neste protocolo')])->onlyInput('files');
             }
         }
     }
