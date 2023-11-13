@@ -3,6 +3,13 @@
         <div class="container mt-4 mx-auto">
             <div class="flex justify-center space-x-4 my-2">
                 <button
+                    class="font-medium bg-cyan-500 p-2 rounded-sm text-white hover:bg-cyan-600 shadow-md"
+                    type="button"
+                    @click="showProtocolDetails"
+                >
+                    Detalhes
+                </button>
+                <button
                     class="font-medium p-2 rounded-sm text-white shadow-md bg-amber-500 hover:bg-amber-600"
                     type="button"
                     @click="editProtocol"
@@ -38,7 +45,7 @@
                         <th>Descrição</th>
                         <th>Prazo</th>
                         <th>Cadastrado</th>
-                        <th>Departmaneto</th>
+                        <th>Departamento</th>
                         <th>Contribuinte</th>
                         <th>CPF</th>
                     </tr>
@@ -142,6 +149,12 @@ const destroyProtocol = () => {
             showModal.value = false;
         },
     });
+};
+
+const showProtocolDetails = () => {
+    const id = getSelectedRowId();
+    if (!id) toast.warning("Selecione um protocolo!");
+    else router.get(route("show-protocol", id));
 };
 
 const shouldOpenModal = () => {
