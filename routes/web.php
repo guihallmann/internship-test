@@ -48,6 +48,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/download/{id}', [ProtocolController::class,'downloadAttachment'])->name('download-attachment');
         Route::delete('/{id}', [ProtocolController::class,'destroyAttachment'])->name('destroy-attachment');
         Route::post('/attach/{id}', [ProtocolController::class,'uploadAttachments'])->name('store-attachments');
+        Route::get('/report', [ProtocolController::class,'allProtocolsReport']);
+        Route::get('/report/{id}', [ProtocolController::class,'protocolReport']);
     });
     
     // user routes
