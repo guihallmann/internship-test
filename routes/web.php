@@ -41,9 +41,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/all', [ProtocolController::class, 'index']);
         Route::get('/create', [ProtocolController::class,'createProtocolPage']);
         Route::post('/', [ProtocolController::class, 'store'])->name('store-protocol')->middleware([HandlePrecognitiveRequests::class]);
-        Route::get('/edit/{id}', [ProtocolController::class, 'show'])->name('edit-protocol');
+        Route::get('/show/{id}', [ProtocolController::class, 'show'])->name('show-protocol');
+        Route::get('/edit/{id}', [ProtocolController::class, 'edit'])->name('edit-protocol');
         Route::put('/edit/{id}', [ProtocolController::class, 'update'])->name('update-protocol')->middleware([HandlePrecognitiveRequests::class]);
         Route::delete('/delete/{id}', [ProtocolController::class, 'destroy'])->name('destroy-protocol');
+        Route::get('/download/{id}', [ProtocolController::class,'downloadAttachment'])->name('download-attachment');
+        Route::delete('/{id}', [ProtocolController::class,'destroyAttachment'])->name('destroy-attachment');
+        Route::post('/attach/{id}', [ProtocolController::class,'uploadAttachments'])->name('store-attachments');
     });
     
     // user routes
