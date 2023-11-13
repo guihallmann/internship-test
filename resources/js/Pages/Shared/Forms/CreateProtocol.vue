@@ -106,6 +106,24 @@
                             ></span>
                         </div>
                     </div>
+                    <div>
+                        <label for="files" class="block text-sm font-bold">
+                            Anexar Arquivos (até 5 arquivos, máximo 3 MB cada)
+                        </label>
+                        <input
+                            type="file"
+                            name="files"
+                            id="files"
+                            multiple
+                            @change="handleFileChange"
+                            class="p-3 text-lg w-full border-2 border-zinc-800 rounded-sm bg-zinc-100 focus:bg-emerald-100/80"
+                        />
+                        <span
+                            v-if="form.errors.files || form.errors['files.0']"
+                            v-text="form.errors.files || form.errors['files.0']"
+                            class="text-rose-500 text-xs mt-1 font-medium"
+                        ></span>
+                    </div>
                 </div>
                 <div class="flex justify-center">
                     <button
@@ -137,6 +155,7 @@ const form = useForm("post", route("store-protocol"), {
     deadline: "",
     person_id: "",
     department_id: "",
+    files: "",
 });
 
 const submitProtocol = () => {
@@ -145,5 +164,9 @@ const submitProtocol = () => {
             form.reset(), toast.success("Protocolo cadastrado com sucesso!");
         },
     });
+};
+
+const handleFileChange = (event) => {
+    form.files = event.target.files;
 };
 </script>
