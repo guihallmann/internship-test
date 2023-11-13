@@ -23,9 +23,11 @@ class StoreProtocolRequest extends FormRequest
     {
         return [
             'description' => 'required|string',
-            'deadline' => 'required|integer',
+            'deadline' => 'required|integer|min:1',
             'person_id' => 'required|exists:people,id',
-            'department_id' => 'required|exists:departments,id'
+            'department_id' => 'required|exists:departments,id',
+            'files.*' => 'mimes:jpg,jpeg,pdf,png|max:3072',
+            'files' => 'max:5'
         ];
     }
 
@@ -35,8 +37,12 @@ class StoreProtocolRequest extends FormRequest
             'description.required' => 'O campo desrição é obrigatório',
             'deadline.required' => 'O campo prazo é obrigatório',
             'deadline.integer' => 'O campo prazo deve ser um número',
+            'deadline.min' => 'O prazo mínimo deve ser maior que 0',
             'person_id.required' => 'O campo contribuinte é obrigatório',
             'department_id.required' => 'O campo departamento é obrigatório',
+            'files.*.mimes' => 'Apenas arquivos JPG, JPEG, PNG ou PDF',
+            'files.*.max' => 'Apenas arquivos de até 3MB',
+            'files.max' => 'Carregue no máximo 5 arquivos'
         ];
     }
 }
