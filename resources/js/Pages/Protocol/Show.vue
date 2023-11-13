@@ -4,7 +4,17 @@
             <div
                 class="flex flex-col text-lg m-4 p-4 border-2 border-black rounded shadow-xl"
             >
-                <h1 class="text-2xl font-bold mb-4">Detalhes Protocolo</h1>
+                <div class="flex justify-between">
+                    <h1 class="text-2xl font-bold mb-4">Detalhes Protocolo</h1>
+                    <a
+                        :href="'/protocol/report/' + protocol.id"
+                        class="flex justify-center items-center gap-2 text-center font-medium bg-cyan-500 p-2 rounded-sm text-white hover:bg-cyan-600 shadow-md"
+                    >
+                        Relatório
+                        <icon name="download" />
+                    </a>
+                </div>
+
                 <div class="grid grid-cols-3 space-x-10">
                     <div class="flex flex-col space-y-4">
                         <h1 class="text-xl font-medium">Protocolo</h1>
@@ -104,13 +114,6 @@
                         <strong>Anexado:</strong>
                         {{ formatDate(attachment.created_at) }}
                     </p>
-                    <!-- <button
-                        class="font-medium bg-cyan-500 p-2 rounded-sm text-white hover:bg-cyan-600 shadow-md"
-                        type="button"
-                        @click="downloadAttachment(attachment.id)"
-                    >
-                        Baixar
-                    </button> -->
                     <a
                         :href="'/protocol/download/' + attachment.id"
                         class="flex justify-center items-center gap-4 font-medium bg-cyan-500 p-2 rounded-sm text-white hover:bg-cyan-600 shadow-md"

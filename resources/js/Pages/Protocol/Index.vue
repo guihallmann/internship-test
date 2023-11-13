@@ -29,6 +29,13 @@
                 >
                     Novo
                 </Link>
+                <a
+                    :href="'/protocol/report/'"
+                    class="flex justify-center items-center gap-2 text-center font-medium bg-cyan-500 p-2 rounded-sm text-white hover:bg-cyan-600 shadow-md"
+                >
+                    Relatório
+                    <icon name="download" />
+                </a>
             </div>
             <DataTable
                 id="datatable"
@@ -65,6 +72,7 @@ import DataTablesCore from "datatables.net";
 import "datatables.net-select";
 import "datatables.net-responsive";
 import Layout from "../Shared/Layout.vue";
+import Icon from "../Shared/Icon.vue";
 import DeleteModal from "../Shared/DeleteModal.vue";
 import { ref, onMounted } from "vue";
 import { expireDate, formatDate } from "../../utils/date";
@@ -164,5 +172,9 @@ const shouldOpenModal = () => {
     } else {
         toast.error("Selecione um protocolo!");
     }
+};
+
+const downloadProtocolsReport = () => {
+    router.get(route("download-protocols-report"));
 };
 </script>
