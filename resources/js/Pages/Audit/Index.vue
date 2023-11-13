@@ -1,14 +1,10 @@
 <template>
     <layout>
         <div class="container mt-4 mx-auto">
-            <div class="flex justify-center space-x-4 my-2">
-                <button
-                    class="font-medium bg-cyan-500 p-2 rounded-sm text-white hover:bg-cyan-600 shadow-md"
-                    type="button"
-                    @click="showAuditDetails"
-                >
-                    Detalhes
-                </button>
+            <div
+                class="flex justify-center items-center my-2 py-4 gap-1 sm:justify-start"
+            >
+                <details-button :details-function="showAuditDetails" />
             </div>
             <DataTable
                 id="datatable"
@@ -39,6 +35,7 @@ import DataTablesCore from "datatables.net";
 import "datatables.net-select";
 import "datatables.net-responsive";
 import Layout from "../Shared/Layout.vue";
+import DetailsButton from "../Shared/Buttons/DetailsButton.vue";
 import { ref, onMounted } from "vue";
 import { formatDate } from "../../utils/date";
 import { router } from "@inertiajs/vue3";

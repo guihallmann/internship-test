@@ -1,7 +1,7 @@
 <template>
     <layout>
         <div
-            class="flex flex-col text-lg m-4 p-4 border-2 space-x-4 border-black rounded shadow-xl sm:grid grid-cols-2"
+            class="flex flex-col text-lg m-4 p-4 border-2 border-black rounded shadow-xl sm:space-x-4"
         >
             <div class="flex flex-col space-y-4">
                 <h1 class="text-2xl font-bold">Registro</h1>
@@ -22,10 +22,6 @@
                     <strong>Registrado:</strong>
                     {{ formatDate(audit.created_at) }}
                 </p>
-            </div>
-            <div class="flex flex-col space-y-4">
-                <h1 class="text-2xl font-bold">Usuário</h1>
-                <hr class="my-2 mr-2" />
                 <p><strong>ID Usuário:</strong> {{ audit.user.id }}</p>
                 <p><strong>Tabela:</strong> {{ audit.user_type }}</p>
                 <p><strong>Nome:</strong> {{ audit.user.name }}</p>

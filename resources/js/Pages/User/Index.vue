@@ -1,27 +1,12 @@
 <template>
     <layout>
         <div class="container mt-4 mx-auto">
-            <div class="flex justify-center space-x-4 my-2">
-                <button
-                    class="font-medium p-2 rounded-sm text-white shadow-md bg-amber-500 hover:bg-amber-600"
-                    type="button"
-                    @click="editUser"
-                >
-                    Editar
-                </button>
-                <button
-                    class="font-medium bg-rose-500 p-2 rounded-sm text-white hover:bg-rose-600 shadow-md"
-                    type="button"
-                    @click="shouldOpenModal"
-                >
-                    Excluir
-                </button>
-                <Link
-                    class="font-medium bg-emerald-500 p-2 rounded-sm text-white hover:bg-emerald-600 shadow-md"
-                    href="/user/create"
-                >
-                    Novo
-                </Link>
+            <div
+                class="flex justify-center items-center my-2 py-4 gap-1 sm:justify-end"
+            >
+                <edit-button :edit-function="editUser" />
+                <delete-button :delete-function="shouldOpenModal" />
+                <new-button :url="'/user/create'" />
             </div>
             <DataTable
                 id="datatable"
@@ -57,13 +42,15 @@ import "datatables.net-select";
 import "datatables.net-responsive";
 import Layout from "../Shared/Layout.vue";
 import DeleteModal from "../Shared/DeleteModal.vue";
+import EditButton from "../Shared/Buttons/EditButton.vue";
+import NewButton from "../Shared/Buttons/NewButton.vue";
+import DeleteButton from "../Shared/Buttons/DeleteButton.vue";
 import { ref, onMounted } from "vue";
 import { formatDate } from "../../utils/date";
 import { formatCpf } from "../../utils/cpf";
 import { router } from "@inertiajs/vue3";
 import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
-import { Link } from "@inertiajs/vue3";
 
 DataTable.use(DataTablesCore);
 

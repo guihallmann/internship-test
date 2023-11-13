@@ -1,34 +1,17 @@
 <template>
     <layout>
         <div class="container mt-4 mx-auto">
-            <div class="flex justify-center space-x-4 my-2">
-                <button
-                    class="font-medium bg-cyan-500 p-2 rounded-sm text-white hover:bg-cyan-600 shadow-md"
-                    type="button"
-                    @click="showDepartmentDetails"
-                >
-                    Detalhes
-                </button>
-                <button
-                    class="font-medium p-2 rounded-sm text-white shadow-md bg-amber-500 hover:bg-amber-600"
-                    type="button"
-                    @click="editDepartment"
-                >
-                    Editar
-                </button>
-                <button
-                    class="font-medium bg-rose-500 p-2 rounded-sm text-white hover:bg-rose-600 shadow-md"
-                    type="button"
-                    @click="shouldOpenModal"
-                >
-                    Excluir
-                </button>
-                <Link
-                    class="text-center font-medium bg-emerald-500 p-2 rounded-sm text-white hover:bg-emerald-600 shadow-md"
-                    href="/department/create"
-                >
-                    Novo
-                </Link>
+            <div
+                class="flex flex-col gap-2 justify-between items-center my-2 py-4 sm:flex-row"
+            >
+                <div class="flex gap-1">
+                    <details-button :details-function="showDepartmentDetails" />
+                </div>
+                <div class="flex gap-1">
+                    <edit-button :edit-function="editDepartment" />
+                    <delete-button :delete-function="shouldOpenModal" />
+                    <new-button :url="'/department/create'" />
+                </div>
             </div>
             <DataTable
                 id="datatable"
@@ -63,6 +46,10 @@ import "datatables.net-select";
 import "datatables.net-responsive";
 import Layout from "../Shared/Layout.vue";
 import DeleteModal from "../Shared/DeleteModal.vue";
+import EditButton from "../Shared/Buttons/EditButton.vue";
+import NewButton from "../Shared/Buttons/NewButton.vue";
+import DeleteButton from "../Shared/Buttons/DeleteButton.vue";
+import DetailsButton from "../Shared/Buttons/DetailsButton.vue";
 import { ref, onMounted } from "vue";
 import { formatDate } from "../../utils/date";
 import { router } from "@inertiajs/vue3";

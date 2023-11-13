@@ -1,21 +1,11 @@
 <template>
     <layout>
         <div class="container mt-4 mx-auto">
-            <div class="flex justify-center space-x-4 my-2">
-                <button
-                    class="font-medium p-2 rounded-sm text-white shadow-md bg-amber-500 hover:bg-amber-600"
-                    type="button"
-                    @click="editFollowUp"
-                >
-                    Editar
-                </button>
-                <button
-                    class="font-medium bg-rose-500 p-2 rounded-sm text-white hover:bg-rose-600 shadow-md"
-                    type="button"
-                    @click="shouldOpenModal"
-                >
-                    Excluir
-                </button>
+            <div
+                class="flex justify-center items-center my-2 py-4 gap-1 sm:justify-end"
+            >
+                <edit-button :edit-function="editFollowUp" />
+                <delete-button :delete-function="shouldOpenModal" />
             </div>
             <DataTable
                 id="datatable"
@@ -52,6 +42,8 @@ import "datatables.net-select";
 import "datatables.net-responsive";
 import Layout from "../Shared/Layout.vue";
 import DeleteModal from "../Shared/DeleteModal.vue";
+import DeleteButton from "../Shared/Buttons/DeleteButton.vue";
+import EditButton from "../Shared/Buttons/EditButton.vue";
 import { ref, onMounted } from "vue";
 import { formatDate, expireDate } from "../../utils/date";
 import { router } from "@inertiajs/vue3";
