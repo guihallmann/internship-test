@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAttachmentRequest;
 use App\Http\Requests\StoreProtocolRequest;
+use App\Http\Requests\UploadAttachmentRequest;
+use App\Models\Attachment;
 use App\Models\Department;
 use App\Models\Person;
 use App\Models\Protocol;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 
@@ -30,10 +32,23 @@ class ProtocolController extends Controller
     }
     public function store(StoreProtocolRequest $request) {
         $protocolDataValidation = $request->validated();
-        Protocol::create($protocolDataValidation);
+        $protocol = Protocol::create($protocolDataValidation);
+
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $file) {
+                $this->uploadAttachment($file, $protocol->id);
+            }
+        }
+        return redirect()->intended('/protocol/all');
+
     }
 
     public function show(string $id) {
+        $protocol = Protocol::with('person', 'department', 'followUp', 'attachments')->findOrfail($id);
+        return Inertia::render('Protocol/Show', ['protocol'=> $protocol]);
+    }
+
+    public function edit(string $id) {
         if(Auth::user()->role === 'Ti' || Auth::user()->role === 'Sys') {
             $departments = Department::orderBy('name', 'ASC')->get();
         } else {
@@ -41,7 +56,7 @@ class ProtocolController extends Controller
             $departments = $user->departments()->orderBy('name', 'ASC')->get(); // Load user's departments and order them by name.
         }
         try {
-            $protocol = Protocol::with('person', 'department')->findOrfail($id);
+            $protocol = Protocol::with('person', 'department', 'attachments')->findOrfail($id);
             return Inertia::render('Protocol/Edit', ['protocol' => $protocol, 'people' => Person::all(), 'departments' => $departments]);
         } catch(ModelNotFoundException $e) {
             // implementar excessões depois
@@ -73,5 +88,43 @@ class ProtocolController extends Controller
             $departments = $user->departments()->orderBy('name', 'ASC')->get(); // Load user's departments and order them by name.
         }
         return Inertia::render('Protocol/Create', ['people' => Person::all(), 'departments' => $departments]);
+    }
+
+    public function uploadAttachment($file, $protocolId)
+    {
+        $path = $file->store('attachments');
+        Attachment::create([
+            'name' => $file->getClientOriginalName(),
+            'file_path' => $path,
+            'protocol_id' => $protocolId,
+        ]);
+    }
+
+    public function uploadAttachments(StoreAttachmentRequest $request, $protocolId)
+    {
+        if ($request->hasFile('files')) {
+            $fileCount = count($request->file('files'));
+            $protocol = Protocol::findOrFail($protocolId);
+            $attachmentsCount = $protocol->attachments->count();
+            $remainingAttachments = 5 - $attachmentsCount;
+            if ($fileCount <= $remainingAttachments) {
+                foreach ($request->file('files') as $file) {
+                    $this->uploadAttachment($file, $protocolId);
+                }
+            } else {
+                return back()->withErrors(['files' => 'Você só pode anexar mais ' . $remainingAttachments . ' ' . ($remainingAttachments == 1 ? 'arquivo' : 'arquivos')])->onlyInput('files');
+            }
+        }
+    }
+
+    public function downloadAttachment(string $id) {
+        $attachment = Attachment::findOrFail($id);
+        return Storage::download($attachment->file_path, $attachment->name);
+    }
+
+    public function destroyAttachment(string $id) {
+        $attachment = Attachment::findOrFail($id);
+        Storage::delete($attachment->file_path);
+        $attachment->delete();
     }
 }
