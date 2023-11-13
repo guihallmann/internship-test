@@ -27,6 +27,11 @@ class Protocol extends Model implements Auditable
     {
         return $this->hasMany(FollowUp::class);
     }
+
+    public function attachments(): HasMany
+    {
+        return $this->hasMany(Attachment::class);
+    }
     
     protected $table = 'protocols';
     protected $fillable = [
