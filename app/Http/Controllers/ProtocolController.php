@@ -14,6 +14,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+// use Barryvdh\DomPDF\Facade\Pdf;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
+
+
 
 
 class ProtocolController extends Controller
@@ -126,5 +130,29 @@ class ProtocolController extends Controller
         $attachment = Attachment::findOrFail($id);
         Storage::delete($attachment->file_path);
         $attachment->delete();
+    }
+
+    public function allProtocols() {
+        $user = Auth::user();
+        if ($user->role === 'Op') {
+            $protocols = Protocol::whereIn('department_id', $user->departments->pluck('id'))->get();
+        } else {
+            $protocols = Protocol::all();
+        }
+        return $protocols;
+    }
+
+    public function allProtocolsReport() {
+        $protocols = $this->allProtocols();
+        $pdf = PDF::loadView('protocols', ['protocols' => $protocols]);
+        return $pdf->download('Relatorio_Todos_Protocolos.pdf');
+    }
+
+
+    public function protocolReport(string $id) {
+        $protocol = Protocol::findOrFail($id);
+        $followUps = $protocol->followUp()->get();
+        $pdf = Pdf::loadView('protocol', ['protocol' => $protocol, 'followUps' => $followUps]);
+        return $pdf->download('Relatorio_Protocolo_'. $id.'.pdf');
     }
 }
