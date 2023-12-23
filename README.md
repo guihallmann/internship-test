@@ -17,4 +17,4 @@ O projeto consiste em desenvolver um sistema de atendimento ao contribuinte, que
 - Perfil de acesso (Acesso a 'x' funcionalidades e páginas de acordo com o tipo de usuário)
 - Auditoria (Geração de logs de operações realizadas)
 - Validações (Dinâmicas utilizando Precognition)
-- Arquivos (Upload de arquivos e geração de documentos PDF)
+- Arquivos (Upload de arquivos e download de arquivos PDF)
